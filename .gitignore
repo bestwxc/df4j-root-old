@@ -1,3 +1,21 @@
+# idea
+.idea/
+*.iml
+
+# eclipse
+.settings/
+.classpath
+.project
+
+# git
+.gitignore
+
+# svn
+.svn/
+
+# maven
+target/
+
 # Compiled class file
 *.class
 
