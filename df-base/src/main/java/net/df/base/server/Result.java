@@ -6,7 +6,7 @@ import net.df.base.constants.ResultType;
  * 返回结果对象
  * @param <T>
  */
-public class Result<T>{
+public abstract class Result<T>{
 
     private Integer errorNo;
 

@@ -3,7 +3,6 @@ package net.df.base.exception;
 
 import net.df.base.constants.ErrorCode;
 import net.df.base.utils.ValidateUtils;
-import org.springframework.lang.NonNull;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,7 +81,7 @@ public class BusinessException extends DfException{
      * @param errorNo
      * @param message
      */
-    public synchronized void addConfigMessage(@NonNull Integer errorNo, String message){
+    public synchronized void addConfigMessage(Integer errorNo, String message){
         errorInfos.put(errorNo, message);
     }
 
@@ -92,7 +91,7 @@ public class BusinessException extends DfException{
      * @param message
      * @return
      */
-    public static BusinessException build(@NonNull Integer errorNo, String message){
+    public static BusinessException build(Integer errorNo, String message){
         return build(errorNo, message, null);
     }
 
@@ -102,7 +101,7 @@ public class BusinessException extends DfException{
      * @param throwable
      * @return
      */
-    public static BusinessException build(@NonNull Integer errorNo, Throwable throwable){
+    public static BusinessException build(Integer errorNo, Throwable throwable){
         return build(errorNo, null, throwable);
     }
 
@@ -113,7 +112,7 @@ public class BusinessException extends DfException{
      * @param throwable
      * @return
      */
-    public static BusinessException build(@NonNull Integer errorNo, String message, Throwable throwable){
+    public static BusinessException build(Integer errorNo, String message, Throwable throwable){
         String temp = errorInfos.get(errorNo);
         if(ValidateUtils.isEmptyString(temp)){
             temp = message;

@@ -1,7 +1,7 @@
 package net.df.base.utils;
-
 import net.df.base.constants.ErrorCode;
 import net.df.base.server.MultiResult;
+import net.df.base.server.PageResult;
 import net.df.base.server.Result;
 import net.df.base.server.SingleResult;
 import java.util.List;
@@ -17,23 +17,21 @@ public class ResultUtils {
      * @param errorInfo
      * @param pageNo
      * @param pageSize
-     * @param result
      * @param total
+     * @param result
      * @return
      */
     public static Result build(Integer errorNo, String errorInfo, Integer pageNo, Integer pageSize, Integer total, Object result){
         Result returnResult = null;
         if(result instanceof List){
-            returnResult = new MultiResult();
             if(ValidateUtils.notNull(pageNo)){
-                ((MultiResult)returnResult).setPageNo(pageNo);
-                ((MultiResult)returnResult).setPageSize(pageSize);
-                ((MultiResult)returnResult).setTotal(total);
+                returnResult = new PageResult(pageNo, pageSize, total, (List) result);
+            }else{
+                returnResult = new MultiResult();
             }
         }else{
             returnResult = new SingleResult();
         }
-        returnResult.setResult(result);
         returnResult.setErrorNo(errorNo);
         returnResult.setErrorInfo(errorInfo);
         return returnResult;
@@ -41,62 +39,38 @@ public class ResultUtils {
 
 
     /**
-     * 构建结果对象
-     * @param errorNo
-     * @param errorInfo
-     * @param pageNo
-     * @param pageSize
-     * @param result
-     * @return
-     */
-    public static Result build(Integer errorNo, String errorInfo, Integer pageNo, Integer pageSize, Object result){
-        return build(errorNo,errorInfo, pageNo, pageSize, null, result);
-    }
-
-    /**
-     * 构建结果对象
-     * @param errorNo
-     * @param errorInfo
-     * @param object
-     * @return
-     */
-    public static Result build(Integer errorNo, String errorInfo, Object object){
-        return build(errorNo, errorInfo, null, null, object);
-    }
-
-
-    /**
      * 成功返回
      * @param pageNo
      * @param pageSize
      * @param total
-     * @param resultObject
+     * @param result
      * @return
      */
-    public static Result success(Integer pageNo, Integer pageSize, Integer total, Object resultObject){
-        return build(ErrorCode.SUCCESS, "调用成功", pageNo, pageSize, total, resultObject);
+    public static Result success(Integer pageNo, Integer pageSize, Integer total, Object result){
+        return build(ErrorCode.SUCCESS, "调用成功", pageNo, pageSize, total, result);
     }
+
 
     /**
      * 成功返回
-     * @param pageNo
-     * @param pageSize
-     * @param resultObject
+     * @param result
      * @return
      */
-    public static Result success(Integer pageNo, Integer pageSize, Object resultObject){
-        return build(ErrorCode.SUCCESS, "调用成功", pageNo, pageSize, resultObject);
+    public static Result success(Object result){
+        return success(null, null, null, result);
     }
+
 
     /**
-     * 成功返回
-     * @param resultObject
+     * 错误返回
+     * @param errorNo
+     * @param errorInfo
+     * @param result
      * @return
      */
-    public static Result success(Object resultObject){
-        return success(null, null, resultObject);
+    public static Result error(int errorNo, String errorInfo, Object result){
+        return build(errorNo, errorInfo, null, null, null, result);
     }
-
 
     /**
      * 错误返回
@@ -108,14 +82,4 @@ public class ResultUtils {
         return error(errorNo, errorInfo, null);
     }
 
-    /**
-     * 错误返回
-     * @param errorNo
-     * @param errorInfo
-     * @param resultObject
-     * @return
-     */
-    public static Result error(int errorNo, String errorInfo, Object resultObject){
-        return build(errorNo, errorInfo, resultObject);
-    }
 }

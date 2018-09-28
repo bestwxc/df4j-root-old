@@ -1,6 +1,7 @@
 package net.df.base.server;
 
 import net.df.base.constants.ResultType;
+
 import java.util.List;
 
 /**
@@ -9,36 +10,20 @@ import java.util.List;
  */
 public class MultiResult<T> extends Result<List<T>>{
 
-    private Integer pageNo = 1;
-    private Integer pageSize = 100;
-    private Integer total = 100;
+    private boolean isPage = false;
 
     public MultiResult(){
+        this(false, null);
+    }
+
+    protected MultiResult(List<T> list){
+        this(false, list);
+    }
+
+    public MultiResult(boolean isPage, List<T> list){
         super(ResultType.LIST);
-    }
-
-    public void setPageNo(Integer pageNo) {
-        this.pageNo = pageNo;
-    }
-
-    public Integer getPageNo() {
-        return pageNo;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
+        this.setResult(list);
+        this.isPage = isPage;
     }
 
     @Override
