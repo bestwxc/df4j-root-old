@@ -29,6 +29,10 @@ public class FileUtils {
         FileOutputStream fos = null;
         Exception exception = null;
         try {
+            File folder = file.getParentFile();
+            if(folder != null && !folder.exists()){
+                folder.mkdirs();
+            }
             fos = new FileOutputStream(file);
             int length = 0;
             byte[] buf = new byte[1024];

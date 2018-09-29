@@ -54,7 +54,7 @@
         <ehcache3.version>3.6.0</ehcache3.version>
 
         <!--插件版本管理-->
-        <maven-plugin-plugin.version>3.6.2</maven-plugin-plugin.version>
+        <maven-plugin-plugin.version>3.5.2</maven-plugin-plugin.version>
         <maven-core.version>3.5.4</maven-core.version>
         <maven-plugin-api.version>3.5.4</maven-plugin-api.version>
         <maven-plugin-annotations.version>3.5.2</maven-plugin-annotations.version>
@@ -287,6 +287,11 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>net.df</groupId>
+                    <artifactId>df-maven-plugin</artifactId>
+                    <version>${df-root.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

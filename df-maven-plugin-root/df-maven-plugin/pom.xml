@@ -9,10 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>df-maven-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
     </dependencies>
 </project>

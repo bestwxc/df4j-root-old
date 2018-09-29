@@ -1,0 +1,39 @@
+{
+  "shouldNotOverrideFileNames": [
+    "project"
+  ],
+  "files": {
+    "gitignore": {
+      "fromPath": "https://raw.githubusercontent.com/bestwxc/df-tools/master/plugin-files/init/.gitignore",
+      "toPath": ".gitignore"
+    },
+    "package": {
+      "fromPath": "https://raw.githubusercontent.com/bestwxc/df-tools/master/plugin-files/init/package.xml",
+      "toPath": "package.xml"
+    },
+    "run": {
+      "fromPath": "https://raw.githubusercontent.com/bestwxc/df-tools/master/plugin-files/init/sh/run.sh",
+      "toPath": "sh/run.sh"
+    },
+    "config": {
+      "fromPath": "https://raw.githubusercontent.com/bestwxc/df-tools/master/plugin-files/init/sh/conf/config.sh",
+      "toPath": "sh/conf/config.sh"
+    },
+    "project": {
+      "fromPath": "https://raw.githubusercontent.com/bestwxc/df-tools/master/plugin-files/init/sh/conf/project.sh",
+      "toPath": "sh/conf/project.sh"
+    },
+    "color": {
+      "fromPath": "https://raw.githubusercontent.com/bestwxc/df-tools/master/plugin-files/init/sh/scripts/color.sh",
+      "toPath": "sh/scripts/color.sh>"
+    },
+    "setup": {
+      "fromPath": "https://raw.githubusercontent.com/bestwxc/df-tools/master/plugin-files/init/sh/scripts/setup.sh",
+      "toPath": "sh/scripts/setup.sh>"
+    },
+    "test": {
+      "fromPath": "https://raw.githubusercontent.com/bestwxc/df-tools/master/plugin-files/init/sh/scripts/test.sh",
+      "toPath": "sh/scripts/test.sh"
+    }
+  }
+}

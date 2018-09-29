@@ -1,8 +1,9 @@
 package net.df.base.utils;
 
 import net.df.base.exception.DfException;
-import java.io.File;
-import java.lang.reflect.ParameterizedType;
+import org.springframework.core.io.Resource;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 
 /**
  * 基于Json的配置工具类
@@ -10,32 +11,21 @@ import java.lang.reflect.ParameterizedType;
  */
 public class JsonConfigurationUtils<T> {
     private Class<T> clazz;
-    private File file;
+    private Resource resource;
     private T configuration = null;
 
-    private JsonConfigurationUtils(){
-        //获取实际的class类型
-        ParameterizedType parameterizedType = (ParameterizedType)this.getClass().getGenericSuperclass();
-        clazz = (Class<T>) parameterizedType.getActualTypeArguments()[0];
+    private JsonConfigurationUtils(Class<T> clazz){
+        this.clazz = clazz;
     }
 
     /**
      * 构造函数
-     * @param filePath
+     * @param resource
+     * @param clazz
      */
-    public JsonConfigurationUtils(String filePath){
-        this(new File(filePath));
-    }
-
-    /**
-     * 构造函数
-     * @param file
-     */
-    public JsonConfigurationUtils(File file){
-        if(!file.exists()){
-            throw new DfException("指定的Json配置文件不存在");
-        }
-        this.file = file;
+    public JsonConfigurationUtils(Resource resource, Class<T> clazz){
+        this(clazz);
+        this.resource = resource;
     }
 
     /**
@@ -43,9 +33,18 @@ public class JsonConfigurationUtils<T> {
      * @return
      */
     private T readConfiguration(){
-        String content = FileUtils.readFile(file);
-        T t = JsonUtils.getObjectFromString(content,clazz);
-        return t;
+        InputStream is = null;
+        try {
+            is = resource.getInputStream();
+            int size = is.available();
+            byte[] data = new byte[size];
+            is.read(data);
+            String content = new String(data, Charset.forName("UTF-8"));
+            T t = JsonUtils.getObjectFromString(content, clazz);
+            return t;
+        }catch (Exception e){
+            throw new DfException("解析配置文件异常");
+        }
     }
 
     /**
