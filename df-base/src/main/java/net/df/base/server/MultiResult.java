@@ -16,7 +16,7 @@ public class MultiResult<T> extends Result<List<T>>{
         this(false, null);
     }
 
-    protected MultiResult(List<T> list){
+    public MultiResult(List<T> list){
         this(false, list);
     }
 

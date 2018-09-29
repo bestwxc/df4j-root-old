@@ -24,13 +24,14 @@ public class ResultUtils {
     public static Result build(Integer errorNo, String errorInfo, Integer pageNo, Integer pageSize, Integer total, Object result){
         Result returnResult = null;
         if(result instanceof List){
+            List list = (List)result;
             if(ValidateUtils.notNull(pageNo)){
-                returnResult = new PageResult(pageNo, pageSize, total, (List) result);
+                returnResult = new PageResult(pageNo, pageSize, total, list);
             }else{
-                returnResult = new MultiResult();
+                returnResult = new MultiResult(list);
             }
         }else{
-            returnResult = new SingleResult();
+            returnResult = new SingleResult<Object>(result);
         }
         returnResult.setErrorNo(errorNo);
         returnResult.setErrorInfo(errorInfo);

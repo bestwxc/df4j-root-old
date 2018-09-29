@@ -10,4 +10,9 @@ public class SingleResult<T> extends Result<T>{
     public SingleResult(){
         super(ResultType.OBJECT);
     }
+
+    public SingleResult(Object result){
+        this();
+        this.setResult((T)result);
+    }
 }
