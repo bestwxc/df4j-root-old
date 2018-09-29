@@ -7,14 +7,11 @@ import net.df.base.utils.ValidateUtils;
 import net.df.plugin.maven.config.Configuration;
 import net.df.plugin.maven.config.InitConfiguration;
 import net.df.plugin.maven.config.InitFileConfiguration;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -25,11 +22,9 @@ import java.util.List;
 import java.util.Map;
 
 @Mojo(name="init")
-public class InitMojo extends AbstractMojo {
+public class InitMojo extends BaseMojo {
 
-    @Parameter(property = "df.plugin.configurationFile",
-            defaultValue = "${project.basedir}/src/main/resources/dfConfig.json", required = true)
-    private File configurationFile;
+
 
     @Parameter(property = "df.plugin.init.skip", defaultValue = "false")
     private boolean skip;
@@ -39,20 +34,11 @@ public class InitMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (skip) {
-            this.getLog().info("copy is skipped.");
+            this.getLog().info("init is skipped.");
             return;
         }
-        Configuration configuration = null;
-        if(configurationFile == null || !configurationFile.exists()){
-            this.getLog().warn("配置文件" + configurationFile.getAbsoluteFile().getAbsolutePath() + "不存在,使用pom默认配置");
-            configuration = new Configuration();
-        }else{
-            this.getLog().info("正在读取配置");
-            Resource resource = new FileSystemResource(configurationFile.getAbsolutePath());
-            JsonConfigurationUtils<Configuration> jsonConfigurationUtils = new JsonConfigurationUtils<>(resource,Configuration.class);
-            configuration = jsonConfigurationUtils.getConfiguration();
-            this.getLog().info("配置文件读取成功");
-        }
+        Configuration configuration = this.getConfiguration();
+
         InitConfiguration initConfiguration = configuration.getInit();
         if(ValidateUtils.isNull(initConfiguration) || ValidateUtils.isNull(initConfiguration.getFiles()) || initConfiguration.getFiles().isEmpty()){
             this.getLog().warn("配置文件中未检测到init的配置，使用默认配置");
