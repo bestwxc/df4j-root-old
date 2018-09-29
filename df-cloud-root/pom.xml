@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>df-cloud-root</artifactId>
     <packaging>pom</packaging>
+    <description>df SpringCloud公共pom</description>
     <dependencies>
         <dependency>
             <groupId>net.df</groupId>

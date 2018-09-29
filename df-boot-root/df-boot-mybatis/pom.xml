@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>df-boot-mybatis</artifactId>
+    <description>df SpringBoot mybatis依赖</description>
     <dependencies>
         <dependency>
             <groupId>net.df</groupId>

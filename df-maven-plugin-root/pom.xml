@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>df-maven-plugin-root</artifactId>
     <packaging>pom</packaging>
+    <description>df maven插件公共pom</description>
     <modules>
         <module>df-maven-plugin</module>
     </modules>

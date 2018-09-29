@@ -21,6 +21,10 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 工程初始化插件
+ * 用于初始化项目必须的脚本等信息
+ */
 @Mojo(name="init")
 public class InitMojo extends BaseMojo {
 

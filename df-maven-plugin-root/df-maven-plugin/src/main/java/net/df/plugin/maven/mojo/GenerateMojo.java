@@ -13,7 +13,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 import java.util.Map;
 
 /**
- * generate Mojo
+ * 生成插件
+ * 可以生成Service,Controller,view等
  */
 @Mojo(name="generate")
 public class GenerateMojo extends BaseMojo {

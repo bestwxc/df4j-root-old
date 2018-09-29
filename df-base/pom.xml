@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>df-base</artifactId>
+    <description>df base组件</description>
     <dependencies>
         <dependency>
             <groupId>commons-codec</groupId>

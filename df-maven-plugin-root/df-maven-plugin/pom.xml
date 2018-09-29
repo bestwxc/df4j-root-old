@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>df-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
+    <description>df通用插件</description>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
