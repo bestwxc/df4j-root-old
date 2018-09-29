@@ -6,6 +6,7 @@ import freemarker.template.TemplateExceptionHandler;
 import net.df.base.exception.DfException;
 import net.df.base.utils.FileUtils;
 import net.df.base.utils.RegexUtils;
+import net.df.base.utils.ValidateUtils;
 import net.df.plugin.maven.config.ModelConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,6 +107,8 @@ public class BaseBusinessGenerate extends BaseGenerator{
     public Object getDataModel(){
         String moduleName = this.getConfiguration().getModuleName();
         String modelClassName = this.getConfiguration().getModelClassName();
+        boolean isLoginDelete = this.getConfiguration().isLoginDelete();
+        String ukColumns = this.getConfiguration().getUkColumns();
         String modelObjectName = classNameToObjectName(modelClassName);
         String modelClass = this.getModelClass();
         String serviceClass = this.getServiceClass();
@@ -119,6 +122,8 @@ public class BaseBusinessGenerate extends BaseGenerator{
         root.put("basePackage", this.getBasePackage());
         root.put("moduleName", moduleName);
         root.put("modelClassName", modelClassName);
+        root.put("isLoginDelete", isLoginDelete);
+        root.put("ukColumns", ukColumns);
         root.put("modelObjectName", modelObjectName);
         root.put("modelClass", modelClass);
         root.put("serviceClass", serviceClass);
@@ -145,6 +150,10 @@ public class BaseBusinessGenerate extends BaseGenerator{
             if(!"id".equals(key) && !"createTime".equals(key) && !"updateTime".equals(key)){
                 fieldMap.put(key,ss[1]);
             }
+        }
+        if(!fieldMap.containsKey("flag") || ValidateUtils.isEmptyString(ukColumns)){
+            logger.warn("配置开启了逻辑删除，但是未在实体中找到flag,或未配置ukColumns,无法使用逻辑删除");
+            root.put("isLoginDelete", false);
         }
         root.put("allFieldMap", allFieldMap);
         root.put("fieldMap", fieldMap);

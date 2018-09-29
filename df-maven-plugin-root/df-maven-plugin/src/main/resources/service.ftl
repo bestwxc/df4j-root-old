@@ -101,6 +101,21 @@ public class ${modelClassName}Service {
         return this.delete(<#list keys as key> <#if key_index == 0>id<#else>null</#if><#if keys?size != (key_index + 1)>,</#if></#list>);
     }
 
+<#if isLoginDelete>
+    /**
+     * 逻辑删除
+     * @param id
+     * @return
+     */
+    public int logicDelete(Long id){
+        ${modelClassName} ${modelObjectName} = ${modelObjectName}Mapper.selectByPrimaryKey(id);
+        List<${modelClassName}> list = this.list(null, <#list keys2 as key><#if ukColumns?contains(key)>${modelObjectName}.get${key?cap_first}(), <#else>null, </#if></#list>null, null);
+        ${modelClassName} max${modelClassName} = list.stream().max((${modelObjectName}1, ${modelObjectName}2) -> ${modelObjectName}1.getFlag() - ${modelObjectName}2.getFlag()).get();
+        this.update(id<#list keys2 as key><#if key != 'flag'>, null<#else>, max${modelClassName}.getFlag() + 1</#if></#list>);
+        return 1;
+    }
+</#if>
+
 
     /**
      * 组装更新数据

@@ -28,6 +28,16 @@ public class ModelConfiguration {
     private String modelClassName;
 
     /**
+     * 是否支持逻辑删除
+     */
+    private boolean loginDelete = false;
+
+    /**
+     * 唯一建字段
+     */
+    private String ukColumns;
+
+    /**
      * Service配置
      */
     private ServiceConfiguration service;
@@ -72,6 +82,22 @@ public class ModelConfiguration {
 
     public void setModelClassName(String modelClassName) {
         this.modelClassName = modelClassName;
+    }
+
+    public boolean isLoginDelete() {
+        return loginDelete;
+    }
+
+    public void setLoginDelete(boolean loginDelete) {
+        this.loginDelete = loginDelete;
+    }
+
+    public String getUkColumns() {
+        return ukColumns;
+    }
+
+    public void setUkColumns(String ukColumns) {
+        this.ukColumns = ukColumns;
     }
 
     public ServiceConfiguration getService() {

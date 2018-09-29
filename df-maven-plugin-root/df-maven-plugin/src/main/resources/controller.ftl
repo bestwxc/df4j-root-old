@@ -103,7 +103,7 @@ public class ${controllerClassName} {
     @RequestMapping("/${controllerConfig.methodRequestMapping}/delete")
     public Result delete(@RequestBody Map<String,?> map) {
         Long id = MapUtils.getLongFromMapNotNull(map, "id");
-        int num = ${serviceObjectName}.delete(id);
+        int num = ${serviceObjectName}.<#if isLoginDelete>logicDelete<#else>delete</#if>(id);
         return ResultUtils.success(null);
     }
     </#if>
