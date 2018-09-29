@@ -134,7 +134,7 @@ public class BaseBusinessGenerate extends BaseGenerator{
         String modelFilePath = this.getConfiguration().getSrcFolder() + File.separator + modelClass.replaceAll("\\.",separator) + ".java";
         String modelSource = FileUtils.readFile(modelFilePath);
         List<String> list = RegexUtils.getMatch(modelSource,"private.+?;");
-        logger.info("modelFilePath:{},文件数据：{},解析后数据:{}",modelFilePath, modelSource, list);
+        logger.debug("modelFilePath:{},文件数据：{},解析后数据:{}",modelFilePath, modelSource, list);
         if(list.size() == 0){
             throw new DfException("未从model对象中解析到需要的字段");
         }
