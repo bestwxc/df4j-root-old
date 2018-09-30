@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class MultiResult<T> extends Result<List<T>>{
 
-    private boolean isPage = false;
+    private boolean page = false;
 
     public MultiResult(){
         this(false, null);
@@ -20,10 +20,18 @@ public class MultiResult<T> extends Result<List<T>>{
         this(false, list);
     }
 
-    public MultiResult(boolean isPage, List<T> list){
+    public MultiResult(boolean page, List<T> list){
         super(ResultType.LIST);
         this.setResult(list);
-        this.isPage = isPage;
+        this.page = page;
+    }
+
+    public boolean isPage() {
+        return page;
+    }
+
+    public void setPage(boolean page) {
+        page = page;
     }
 
     @Override
