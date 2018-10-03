@@ -25,11 +25,11 @@
     },
     "color": {
       "fromPath": "https://raw.githubusercontent.com/bestwxc/df-tools/master/plugin-files/init/sh/scripts/color.sh",
-      "toPath": "sh/scripts/color.sh>"
+      "toPath": "sh/scripts/color.sh"
     },
     "setup": {
       "fromPath": "https://raw.githubusercontent.com/bestwxc/df-tools/master/plugin-files/init/sh/scripts/setup.sh",
-      "toPath": "sh/scripts/setup.sh>"
+      "toPath": "sh/scripts/setup.sh"
     },
     "test": {
       "fromPath": "https://raw.githubusercontent.com/bestwxc/df-tools/master/plugin-files/init/sh/scripts/test.sh",

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import net.df.base.server.Result;
 import net.df.base.utils.MapUtils;
 import net.df.base.utils.ResultUtils;
@@ -21,7 +20,6 @@ import ${serviceClass};
 
 @RestController
 @RequestMapping("${controllerConfig.classRequestMapping}")
-@ConditionalOnMissingBean(${controllerClassName}.class)
 public class ${controllerClassName} {
 
     private Logger logger = LoggerFactory.getLogger(${controllerClassName}.class);
