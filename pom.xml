@@ -17,7 +17,7 @@
     </parent>
     <groupId>com.df4j</groupId>
     <artifactId>df4j-root</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2-SNAPSHOT</version>
     <description>df4j-root</description>
     <name>df4j-root</name>
     <url>https://github.com/bestwxc/df4j-root</url>
@@ -78,6 +78,9 @@
         <maven-core.version>3.5.4</maven-core.version>
         <maven-plugin-api.version>3.5.4</maven-plugin-api.version>
         <maven-plugin-annotations.version>3.5.2</maven-plugin-annotations.version>
+
+        <!-- jjwt -->
+        <jjwt.version>0.10.5</jjwt.version>
     </properties>
     <dependencies>
         <dependency>
@@ -207,6 +210,23 @@
                 <groupId>tk.mybatis</groupId>
                 <artifactId>mapper-generator</artifactId>
                 <version>${mapper.version}</version>
+            </dependency>
+
+            <!--jjwt-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
