@@ -46,7 +46,7 @@
 
     <properties>
         <!--框架基本信息配置-->
-        <df4j-root.version>1.2.1</df4j-root.version>
+        <df4j-root.version>1.2.2-SNAPSHOT</df4j-root.version>
         <spring-cloud.version>Finchley.SR1</spring-cloud.version>
         <spring-boot.mainClass>com.df4j.Application</spring-boot.mainClass>
 
@@ -73,6 +73,8 @@
         <!--cache-->
         <ehcache3.version>3.6.0</ehcache3.version>
 
+        <spring-session-bom.version>Apple-SR5</spring-session-bom.version>
+
         <!--插件版本管理-->
         <maven-plugin-plugin.version>3.5.2</maven-plugin-plugin.version>
         <maven-core.version>3.5.4</maven-core.version>
@@ -81,6 +83,8 @@
 
         <!-- jjwt -->
         <jjwt.version>0.10.5</jjwt.version>
+
+        <shiro-spring.version>1.4.0</shiro-spring.version>
     </properties>
     <dependencies>
         <dependency>
@@ -98,14 +102,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--spring session-->
-            <dependency>
-                <groupId>org.springframework.session</groupId>
-                <artifactId>spring-session-bom</artifactId>
-                <version>${spring-session-bom.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+
             <!--df 模块依赖-->
             <dependency>
                 <groupId>com.df4j</groupId>
@@ -228,24 +225,18 @@
                 <artifactId>jjwt-jackson</artifactId>
                 <version>${jjwt.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro-spring.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -402,4 +393,25 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
