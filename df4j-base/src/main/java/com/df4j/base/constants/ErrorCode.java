@@ -27,6 +27,11 @@ public class ErrorCode {
     public static Integer SYSTEM_ERROR = -99;
 
     /**
+     * 未授权
+     */
+    public static Integer UNAUTHORIZED = -998;
+
+    /**
      * 未登录
      */
     public static Integer UNLOGIN = -999;
