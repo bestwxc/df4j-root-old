@@ -1,8 +1,8 @@
-package com.df4j.module.${moduleName}.service;
+package ${basePackage}.${moduleName}.service;
 
 import com.df4j.base.utils.ValidateUtils;
-import com.df4j.module.${moduleName}.mapper.${modelClassName}Mapper;
-import com.df4j.module.${moduleName}.model.${modelClassName};
+import ${basePackage}.${moduleName}.mapper.${modelClassName}Mapper;
+import ${basePackage}.${moduleName}.model.${modelClassName};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;

@@ -119,7 +119,10 @@ public class BaseBusinessGenerate extends BaseGenerator{
         String controllerObjectName = classNameToObjectName(controllerClassName);
 
         Map<String, Object> root = new HashMap();
-        root.put("basePackage", this.getBasePackage());
+        String basePackage = this.getBasePackage();
+        String rootPackage = basePackage.substring(0, basePackage.indexOf(".module"));
+        root.put("rootPackage", rootPackage);
+        root.put("basePackage", basePackage);
         root.put("moduleName", moduleName);
         root.put("modelClassName", modelClassName);
         root.put("isLoginDelete", isLoginDelete);
