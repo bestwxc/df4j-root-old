@@ -27,6 +27,11 @@ public class ErrorCode {
     public static Integer SYSTEM_ERROR = -99;
 
     /**
+     * 密码或登陆令牌不正确
+     */
+    public static Integer INCORRECT_CREDENTIALS = -980;
+
+    /**
      * 未授权
      */
     public static Integer UNAUTHORIZED = -998;
