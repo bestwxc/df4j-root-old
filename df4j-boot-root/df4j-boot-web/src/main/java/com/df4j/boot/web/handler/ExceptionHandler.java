@@ -5,6 +5,7 @@ import com.df4j.base.exception.BusinessException;
 import com.df4j.base.exception.DfException;
 import com.df4j.base.server.Result;
 import com.df4j.base.utils.ResultUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
@@ -40,7 +41,12 @@ public class ExceptionHandler {
             errorNo = ErrorCode.UNCATCH_BUSINESS_EXCEPTION;
             errorInfo = t.getMessage();
             logger.error("errorNo:{},errorInfo:{}",errorNo,errorInfo,t);
-        }else{
+        }else if(t instanceof IncorrectCredentialsException) {
+            errorNo = ErrorCode.INCORRECT_CREDENTIALS;
+            errorInfo = "登陆密码或令牌错误";
+            logger.info("errorNo:{},errorInfo:{}",errorNo,errorInfo,t);
+        }
+        else{
             errorNo = ErrorCode.SYSTEM_ERROR;
             errorInfo = "系统异常:" + t.getMessage();
             logger.error("errorNo:{},errorInfo:{}",errorNo,errorInfo,t);
