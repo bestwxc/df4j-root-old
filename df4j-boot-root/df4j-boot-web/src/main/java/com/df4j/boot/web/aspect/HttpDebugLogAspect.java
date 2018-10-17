@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -14,13 +15,17 @@ import java.util.Map;
 
 @Aspect
 @Component
+@Order(1)
 @ConditionalOnProperty(prefix = "df.boot.web", name = "open-http-debug-log",havingValue = "true")
 public class HttpDebugLogAspect {
     private Logger logger = LoggerFactory.getLogger(HttpDebugLogAspect.class);
 
     ThreadLocal<Long> startTime = new ThreadLocal<>();
 
-    @Pointcut("execution(public * com.df4j.module.*.controller.*.*(..))")
+    @Pointcut("execution(public * com..module.*.controller.*.*(..))" +
+            " || execution(public * cn..module.*.controller.*.*(..))" +
+            " || execution(public * org..module.*.controller.*.*(..))" +
+            " || execution(public * net..module.*.controller.*.*(..))")
     public void httpLog() {
 
     }
@@ -31,6 +36,7 @@ public class HttpDebugLogAspect {
 
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
+
         Object requestMap = null;
         Object[] args = joinPoint.getArgs();
         if(args != null && args.length > 0){
