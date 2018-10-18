@@ -71,6 +71,17 @@ public class ${modelClassName}Service {
     }
 
     /**
+     * 查询
+    <#list keys2 as key>
+     * @param ${key}
+    </#list>
+     * @return
+     */
+    public List<${modelClassName}> list(<#list keys2 as key>${allFieldMap["${key}"]} ${key}<#if keys2?size != (key_index + 1)>,</#if></#list>){
+        return this.list(null, <#list keys2 as key>${key} <#if keys2?size != (key_index + 1)>, </#if></#list> ,null, null);
+    }
+
+    /**
      * 查询一个
      * @param id
      * @return
