@@ -16,6 +16,15 @@ public class StringUtils {
     }
 
     /**
+     * 对象名转类名
+     * @param objectName
+     * @return
+     */
+    public static String objectNameToClassName(String objectName){
+        return objectName.substring(0,1).toUpperCase() + objectName.substring(1, objectName.length());
+    }
+
+    /**
      * 拼接字符串并用指定的符号分隔
      * @param stringList
      * @param split

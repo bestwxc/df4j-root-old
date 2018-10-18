@@ -81,6 +81,29 @@ public class MapUtils {
     }
 
     /**
+     * 获取String范围
+     * @param map
+     * @param fromFieldName
+     * @param toFieldName
+     * @return
+     */
+    public static String getStringRange(Map<String,?> map, String fromFieldName, String toFieldName){
+        String from = getStringFromMap(map, fromFieldName, null);
+        String to = getStringFromMap(map, toFieldName, null);
+        return RangeUtils.createFromToRange(String.class, from, to);
+    }
+
+    /**
+     * 获取String范围
+     * @param map
+     * @param fieldName
+     * @return
+     */
+    public static String getStringRange(Map<String,?> map, String fieldName){
+        return getStringRange(map, getFromFieldName(fieldName), getToFieldName(fieldName));
+    }
+
+    /**
      * 从Map中获取整数
      * @param map
      * @param fieldName
@@ -111,6 +134,30 @@ public class MapUtils {
     }
 
     /**
+     * 获取Integer范围
+     * @param map
+     * @param fromFieldName
+     * @param toFieldName
+     * @return
+     */
+    public static Integer getIntegerRange(Map<String,?> map, String fromFieldName, String toFieldName){
+        Integer from = getIntegerFromMap(map, fromFieldName, null);
+        Integer to = getIntegerFromMap(map, toFieldName, null);
+        return RangeUtils.createFromToRange(Integer.class, from, to);
+    }
+
+    /**
+     * 获取Integer范围
+     * @param map
+     * @param fieldName
+     * @return
+     */
+    public static Integer getIntegerRange(Map<String,?> map, String fieldName){
+        return getIntegerRange(map, getFromFieldName(fieldName), getToFieldName(fieldName));
+    }
+
+
+    /**
      * 从Map中获取长整数
      * @param map
      * @param fieldName
@@ -138,6 +185,29 @@ public class MapUtils {
         }catch (ParamIllegalException e){
             return defaultValue;
         }
+    }
+
+    /**
+     * 获取Long范围
+     * @param map
+     * @param fromFieldName
+     * @param toFieldName
+     * @return
+     */
+    public static Long getLongRange(Map<String,?> map, String fromFieldName, String toFieldName){
+        Long from = getLongFromMap(map, fromFieldName, null);
+        Long to = getLongFromMap(map, toFieldName, null);
+        return RangeUtils.createFromToRange(Long.class, from, to);
+    }
+
+    /**
+     * 获取Long范围
+     * @param map
+     * @param fieldName
+     * @return
+     */
+    public static Long getLongRange(Map<String,?> map, String fieldName){
+        return getLongRange(map, getFromFieldName(fieldName), getToFieldName(fieldName));
     }
 
     /**
@@ -171,6 +241,29 @@ public class MapUtils {
     }
 
     /**
+     * 获取BigDecimal范围
+     * @param map
+     * @param fromFieldName
+     * @param toFieldName
+     * @return
+     */
+    public static BigDecimal getBigDecimalRange(Map<String,?> map, String fromFieldName, String toFieldName){
+        BigDecimal from = getBigDecimalFromMap(map, fromFieldName, null);
+        BigDecimal to = getBigDecimalFromMap(map, toFieldName, null);
+        return RangeUtils.createFromToRange(BigDecimal.class, from, to);
+    }
+
+    /**
+     * 获取BigDecimal范围
+     * @param map
+     * @param fieldName
+     * @return
+     */
+    public static BigDecimal getBigDecimalRange(Map<String,?> map, String fieldName){
+        return getBigDecimalRange(map, getFromFieldName(fieldName), getToFieldName(fieldName));
+    }
+
+    /**
      * 从Map中获取日期
      * @param map
      * @param fieldName
@@ -200,6 +293,29 @@ public class MapUtils {
         }catch (ParamIllegalException e){
             return defaultValue;
         }
+    }
+
+    /**
+     * 获取Date范围
+     * @param map
+     * @param fromFieldName
+     * @param toFieldName
+     * @return
+     */
+    public static Date getDateRange(Map<String,?> map, String fromFieldName, String toFieldName, String pattern){
+        Date from = getDateFromMap(map, fromFieldName, pattern, null);
+        Date to = getDateFromMap(map, toFieldName, pattern, null);
+        return RangeUtils.createFromToRange(Date.class, from, to);
+    }
+
+    /**
+     * 获取Date范围
+     * @param map
+     * @param fieldName
+     * @return
+     */
+    public static Date getDateRange(Map<String,?> map, String fieldName, String pattern){
+        return getDateRange(map, getFromFieldName(fieldName), getToFieldName(fieldName), pattern);
     }
 
     /**
@@ -258,5 +374,23 @@ public class MapUtils {
         }catch (ParamIllegalException e){
             return defaultValue;
         }
+    }
+
+    /**
+     * 获取FromFieldName
+     * @param fieldName
+     * @return
+     */
+    public static String getFromFieldName(String fieldName){
+        return "from" + StringUtils.objectNameToClassName(fieldName);
+    }
+
+    /**
+     * 获取ToFieldName
+     * @param fieldName
+     * @return
+     */
+    public static String getToFieldName(String fieldName){
+        return "to" + StringUtils.objectNameToClassName(fieldName);
     }
 }
