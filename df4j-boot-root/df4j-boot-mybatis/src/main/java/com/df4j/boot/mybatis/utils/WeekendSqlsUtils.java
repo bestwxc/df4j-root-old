@@ -11,8 +11,8 @@ import static com.df4j.base.range.BoundType.*;
 /**
  * 拼接WeekendSqls的工具类
  */
-public class WeekendSqlsUtils {
-    public static WeekendSqls appendSql(WeekendSqls sqls, Fn fn, Object value){
+public class WeekendSqlsUtils<T> {
+    public WeekendSqls<T> appendSql(WeekendSqls<T> sqls, Fn<T, Object> fn, Object value){
         // 如果值为空，不拼接
         if(ValidateUtils.isNull(value)){
             return sqls;

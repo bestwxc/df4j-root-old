@@ -1,6 +1,7 @@
 package ${basePackage}.${moduleName}.service;
 
 import com.df4j.base.utils.ValidateUtils;
+import com.df4j.boot.mybatis.utils.WeekendSqlsUtils;
 import ${basePackage}.${moduleName}.mapper.${modelClassName}Mapper;
 import ${basePackage}.${moduleName}.model.${modelClassName};
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class ${modelClassName}Service {
 
     @Autowired
     private ${modelClassName}Mapper ${modelObjectName}Mapper;
+
+    private WeekendSqlsUtils<${modelClassName}> sqlsUtils = new WeekendSqlsUtils<>();
 
 
     <#assign  keys=allFieldMap?keys/>
@@ -142,9 +145,7 @@ public class ${modelClassName}Service {
     private Example getExample(<#list keys as key>${allFieldMap["${key}"]} ${key}<#if keys?size != (key_index + 1)>,</#if></#list>){
         WeekendSqls<${modelClassName}> sqls = WeekendSqls.<${modelClassName}>custom();
         <#list keys as key>
-        if(ValidateUtils.<#if allFieldMap["${key}"] == "String">isNotEmptyString<#else>notNull</#if>(${key})) {
-            sqls.andEqualTo(${modelClassName}::get${key?cap_first}, ${key});
-        }
+        sqlsUtils.appendSql(sqls, ${modelClassName}::get${key?cap_first}, ${key});
         </#list>
         Example example = new Example.Builder(${modelClassName}.class).where(sqls).build();
         return example;
