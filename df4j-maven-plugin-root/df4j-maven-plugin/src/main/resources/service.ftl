@@ -72,6 +72,15 @@ public class ${modelClassName}Service {
 
     /**
      * 查询一个
+     * @param id
+     * @return
+     */
+    public ${modelClassName} listOne(Long id){
+        return ${modelObjectName}Mapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 查询一个
     <#list keys as key>
      * @param ${key}
     </#list>
