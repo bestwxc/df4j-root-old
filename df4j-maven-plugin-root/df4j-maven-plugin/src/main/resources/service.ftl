@@ -30,7 +30,7 @@ public class ${modelClassName}Service {
     </#list>
      * @return
      */
-    public ${modelClassName} add(<#list keys2 as key>${fieldMap["${key}"]} ${key}<#if keys2?size != (key_index + 1)>,</#if></#list>){
+    public ${modelClassName} add(<#list keys2 as key>${fieldMap["${key}"]} ${key}<#if keys2?size != (key_index + 1)>, </#if></#list>){
         ${modelClassName} ${modelObjectName} = new ${modelClassName}();
         setObject(${modelObjectName},<#list keys2 as key>${key}<#if keys2?size != (key_index + 1)>,</#if></#list>);
         Date now = new Date();
@@ -49,9 +49,9 @@ public class ${modelClassName}Service {
     </#list>
      * @return
      */
-    public ${modelClassName} update(Long id, <#list keys2 as key>${fieldMap["${key}"]} ${key}<#if keys2?size != (key_index + 1)>,</#if></#list>){
+    public ${modelClassName} update(Long id, <#list keys2 as key>${fieldMap["${key}"]} ${key}<#if keys2?size != (key_index + 1)>, </#if></#list>){
         ${modelClassName} ${modelObjectName} = ${modelObjectName}Mapper.selectByPrimaryKey(id);
-        setObject(${modelObjectName},<#list keys2 as key>${key}<#if keys2?size != (key_index + 1)>,</#if></#list>);
+        setObject(${modelObjectName},<#list keys2 as key>${key}<#if keys2?size != (key_index + 1)>, </#if></#list>);
         Date now = new Date();
         ${modelObjectName}.setUpdateTime(now);
         ${modelObjectName}Mapper.updateByPrimaryKey(${modelObjectName});
@@ -65,8 +65,8 @@ public class ${modelClassName}Service {
     </#list>
      * @return
      */
-    public List<${modelClassName}> list(<#list keys as key>${allFieldMap["${key}"]} ${key}<#if keys?size != (key_index + 1)>,</#if></#list>){
-        Example example = this.getExample(<#list keys as key>${key}<#if keys?size != (key_index + 1)>,</#if></#list>);
+    public List<${modelClassName}> list(<#list keys as key>${allFieldMap["${key}"]} ${key}<#if keys?size != (key_index + 1)>, </#if></#list>){
+        Example example = this.getExample(<#list keys as key>${key}<#if keys?size != (key_index + 1)>, </#if></#list>);
         return ${modelObjectName}Mapper.selectByExample(example);
     }
 
@@ -77,7 +77,7 @@ public class ${modelClassName}Service {
     </#list>
      * @return
      */
-    public List<${modelClassName}> list(<#list keys2 as key>${allFieldMap["${key}"]} ${key}<#if keys2?size != (key_index + 1)>,</#if></#list>){
+    public List<${modelClassName}> list(<#list keys2 as key>${allFieldMap["${key}"]} ${key}<#if keys2?size != (key_index + 1)>, </#if></#list>){
         return this.list(null, <#list keys2 as key>${key} <#if keys2?size != (key_index + 1)>, </#if></#list> ,null, null);
     }
 
@@ -98,7 +98,7 @@ public class ${modelClassName}Service {
     </#list>
      * @return
      */
-    public UserRole listOne(<#list ukKeys as key>${allFieldMap["${key}"]} ${key}<#if ukKeys?size != (key_index + 1)>,</#if></#list>){
+    public UserRole listOne(<#list ukKeys as key>${allFieldMap["${key}"]} ${key}<#if ukKeys?size != (key_index + 1)>, </#if></#list>){
         return listOne(null, <#list keys2 as key><#if ukKeys?seq_contains(key)>${key}, <#elseif key == "flag">0, <#else>null, </#if></#list>null, null);
     }
 </#if>
@@ -110,8 +110,8 @@ public class ${modelClassName}Service {
     </#list>
      * @return
      */
-    public ${modelClassName} listOne(<#list keys as key>${allFieldMap["${key}"]} ${key}<#if keys?size != (key_index + 1)>,</#if></#list>){
-        Example example = this.getExample(<#list keys as key>${key}<#if keys?size != (key_index + 1)>,</#if></#list>);
+    public ${modelClassName} listOne(<#list keys as key>${allFieldMap["${key}"]} ${key}<#if keys?size != (key_index + 1)>, </#if></#list>){
+        Example example = this.getExample(<#list keys as key>${key}<#if keys?size != (key_index + 1)>, </#if></#list>);
         return ${modelObjectName}Mapper.selectOneByExample(example);
     }
 
@@ -123,8 +123,8 @@ public class ${modelClassName}Service {
     </#list>
      * @return
      */
-    public int delete(<#list keys as key>${allFieldMap["${key}"]} ${key}<#if keys?size != (key_index + 1)>,</#if></#list>){
-        Example example = this.getExample(<#list keys as key>${key}<#if keys?size != (key_index + 1)>,</#if></#list>);
+    public int delete(<#list keys as key>${allFieldMap["${key}"]} ${key}<#if keys?size != (key_index + 1)>, </#if></#list>){
+        Example example = this.getExample(<#list keys as key>${key}<#if keys?size != (key_index + 1)>, </#if></#list>);
         return ${modelObjectName}Mapper.deleteByExample(example);
     }
 
@@ -160,7 +160,7 @@ public class ${modelClassName}Service {
     </#list>
      * @return
      */
-    private void setObject(${modelClassName} ${modelObjectName}, <#list keys2 as key>${fieldMap["${key}"]} ${key}<#if keys2?size != (key_index + 1)>,</#if></#list>){
+    private void setObject(${modelClassName} ${modelObjectName}, <#list keys2 as key>${fieldMap["${key}"]} ${key}<#if keys2?size != (key_index + 1)>, </#if></#list>){
         <#list keys2 as key>
         if(ValidateUtils.<#if fieldMap["${key}"] == "String">isNotEmptyString<#else>notNull</#if>(${key})){
             ${modelObjectName}.set${key?cap_first}(${key});
