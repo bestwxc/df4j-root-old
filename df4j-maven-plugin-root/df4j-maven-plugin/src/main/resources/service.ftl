@@ -98,7 +98,7 @@ public class ${modelClassName}Service {
     </#list>
      * @return
      */
-    public UserRole listOne(<#list ukKeys as key>${allFieldMap["${key}"]} ${key}<#if ukKeys?size != (key_index + 1)>, </#if></#list>){
+    public ${modelClassName} listOne(<#list ukKeys as key>${allFieldMap["${key}"]} ${key}<#if ukKeys?size != (key_index + 1)>, </#if></#list>){
         return listOne(null, <#list keys2 as key><#if ukKeys?seq_contains(key)>${key}, <#elseif key == "flag">0, <#else>null, </#if></#list>null, null);
     }
 </#if>
