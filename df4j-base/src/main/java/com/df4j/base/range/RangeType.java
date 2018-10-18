@@ -37,5 +37,10 @@ public class RangeType {
     /**
      * 无
      */
-    public static int NULL = 0;
+    public static int NULL = 6;
+
+    /**
+     * 等于空
+     */
+    public static int EQUAL_NULL = 7;
 }

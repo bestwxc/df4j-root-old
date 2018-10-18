@@ -4,6 +4,7 @@ import com.df4j.base.exception.DfException;
 import com.df4j.base.range.Range;
 import com.df4j.base.range.RangeProxyFactory;
 import static com.df4j.base.range.RangeType.*;
+import static com.df4j.base.range.BoundType.*;
 
 public class RangeUtils {
     /**
@@ -17,6 +18,11 @@ public class RangeUtils {
      * @return
      */
     public static <T> T createRange(Class<T> clazz, int rangeType, T fromRange, T toRange) {
+        return createRange(clazz, rangeType, EXCLUDE, fromRange, toRange);
+    }
+
+
+    public static <T> T createRange(Class<T> clazz, int rangeType, int boundType, T fromRange, T toRange) {
         // 判断是否能够使用范围类型，必须实现Comparable接口
         if (rangeType == EQUAL || rangeType == NULL) {
             if (!clazz.isAssignableFrom(Comparable.class)) {
@@ -26,6 +32,7 @@ public class RangeUtils {
         T proxy = RangeProxyFactory.create(clazz, fromRange);
         Range<T> range = (Range<T>) proxy;
         range.setRangeType(rangeType);
+        range.setBoundType(boundType);
         // a < x < b 如果 a >= b, 则没有记录满足
         if (BETWEEN == rangeType) {
             range.setToRange(toRange);
@@ -68,7 +75,35 @@ public class RangeUtils {
      * @return
      */
     public static <T> T createGreater(Class<T> clazz, T object) {
-        return createRange(clazz, GREATER, object, null);
+        return createGreater(clazz, object);
+    }
+
+    /**
+     * 创建大于区间
+     *
+     * @param clazz
+     * @param object
+     * @param boundType
+     * @param <T>
+     * @return
+     */
+    public static <T> T createGreater(Class<T> clazz, T object, int boundType) {
+        boundType = boundType > INCLUDE ? INCLUDE : boundType;
+        return createRange(clazz, GREATER, boundType, object, null);
+    }
+
+    /**
+     * 创建小于区间
+     *
+     * @param clazz
+     * @param object
+     * @param boundType
+     * @param <T>
+     * @return
+     */
+    public static <T> T createLess(Class<T> clazz, T object, int boundType) {
+        boundType = boundType > INCLUDE ? INCLUDE : boundType;
+        return createRange(clazz, LESS, boundType, object, null);
     }
 
     /**
@@ -80,7 +115,21 @@ public class RangeUtils {
      * @return
      */
     public static <T> T createLess(Class<T> clazz, T object) {
-        return createRange(clazz, LESS, object, null);
+        return createLess(clazz, object, EXCLUDE);
+    }
+
+    /**
+     * 创建中间范围
+     *
+     * @param clazz
+     * @param object
+     * @param toRange
+     * @param boundType
+     * @param <T>
+     * @return
+     */
+    public static <T> T createBetween(Class<T> clazz, T object, T toRange, int boundType) {
+        return createRange(clazz, BETWEEN, boundType, object, toRange);
     }
 
     /**
@@ -93,7 +142,21 @@ public class RangeUtils {
      * @return
      */
     public static <T> T createBetween(Class<T> clazz, T object, T toRange) {
-        return createRange(clazz, BETWEEN, object, toRange);
+        return createBetween(clazz, object, toRange, EXCLUDE);
+    }
+
+    /**
+     * 创建notBetween
+     *
+     * @param clazz
+     * @param object
+     * @param toRange
+     * @param boundType
+     * @param <T>
+     * @return
+     */
+    public static <T> T createNotBetween(Class<T> clazz, T object, T toRange, int boundType) {
+        return createRange(clazz, NOT_BETWEEN, boundType, object, toRange);
     }
 
     /**
@@ -106,7 +169,7 @@ public class RangeUtils {
      * @return
      */
     public static <T> T createNotBetween(Class<T> clazz, T object, T toRange) {
-        return createRange(clazz, NOT_BETWEEN, object, toRange);
+        return createNotBetween(clazz, object, toRange, EXCLUDE);
     }
 
     /**
@@ -137,18 +200,32 @@ public class RangeUtils {
      * @param clazz
      * @param fromRange
      * @param toRange
+     * @param boundType
+     * @param <T>
+     * @return
+     */
+    public static <T> T createFromToRange(Class<T> clazz, T fromRange, T toRange, int boundType) {
+        if (fromRange == null && toRange == null) {
+            return createBetween(clazz, fromRange, toRange, boundType);
+        } else if (fromRange == null) {
+            return createLess(clazz, toRange, boundType);
+        } else if (toRange == null) {
+            return createGreater(clazz, fromRange, boundType);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 用来表示范围框
+     *
+     * @param clazz
+     * @param fromRange
+     * @param toRange
      * @param <T>
      * @return
      */
     public static <T> T createFromToRange(Class<T> clazz, T fromRange, T toRange) {
-        if (fromRange == null && toRange == null) {
-            return createBetween(clazz, fromRange, toRange);
-        } else if (fromRange == null) {
-            return createLess(clazz, toRange);
-        } else if (toRange == null) {
-            return createGreater(clazz, fromRange);
-        } else {
-            return null;
-        }
+        return createFromToRange(clazz, fromRange, toRange, EXCLUDE);
     }
 }

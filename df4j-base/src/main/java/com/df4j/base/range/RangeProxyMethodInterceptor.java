@@ -15,6 +15,8 @@ public class RangeProxyMethodInterceptor<T> implements MethodInterceptor,Range<T
      */
     private int rangeType = RangeType.EQUAL;
 
+    private int boundType = BoundType.EXCLUDE;
+
     /**
      * 代理对象的toRange
      */
@@ -37,6 +39,16 @@ public class RangeProxyMethodInterceptor<T> implements MethodInterceptor,Range<T
     @Override
     public int getRangeType() {
         return this.rangeType;
+    }
+
+    @Override
+    public int getBoundType() {
+        return this.boundType;
+    }
+
+    @Override
+    public void setBoundType(int boundType) {
+        this.boundType = boundType;
     }
 
     @Override
