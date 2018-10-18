@@ -47,6 +47,8 @@ public class ControllerConfiguration {
      */
     private Map<String,Object> delete;
 
+    private boolean disableMapping = false;
+
 
     public boolean isEnabled() {
         return enabled;
@@ -110,5 +112,13 @@ public class ControllerConfiguration {
 
     public void setDelete(Map<String, Object> delete) {
         this.delete = delete;
+    }
+
+    public boolean isDisableMapping() {
+        return disableMapping;
+    }
+
+    public void setDisableMapping(boolean disableMapping) {
+        this.disableMapping = disableMapping;
     }
 }
