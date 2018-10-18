@@ -78,6 +78,19 @@ public class ${modelClassName}Service {
     public ${modelClassName} listOne(Long id){
         return ${modelObjectName}Mapper.selectByPrimaryKey(id);
     }
+<#if isLoginDelete>
+    <#assign ukKeys=ukColumns?split(",")/>
+    /**
+     * 查询一个
+    <#list ukKeys as key>
+     * @param ${key}
+    </#list>
+     * @return
+     */
+    public UserRole listOne(<#list ukKeys as key>${allFieldMap["${key}"]} ${key}<#if ukKeys?size != (key_index + 1)>,</#if></#list>){
+        return listOne(null, <#list keys2 as key><#if ukKeys?seq_contains(key)>${key}, <#elseif key == "flag">0, <#else>null, </#if></#list>null, null);
+    }
+</#if>
 
     /**
      * 查询一个
