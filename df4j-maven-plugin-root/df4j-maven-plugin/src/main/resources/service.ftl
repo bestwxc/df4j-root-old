@@ -2,6 +2,7 @@ package ${basePackage}.${moduleName}.service;
 
 import com.df4j.base.utils.ValidateUtils;
 import com.df4j.boot.mybatis.utils.WeekendSqlsUtils;
+import com.df4j.base.form.Field;
 import ${basePackage}.${moduleName}.mapper.${modelClassName}Mapper;
 import ${basePackage}.${moduleName}.model.${modelClassName};
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,18 @@ public class ${modelClassName}Service {
      * @return
      */
     public List<${modelClassName}> list(<#list keys as key>${allFieldMap["${key}"]} ${key}<#if keys?size != (key_index + 1)>, </#if></#list>){
+        Example example = this.getExample(<#list keys as key>${key}<#if keys?size != (key_index + 1)>, </#if></#list>);
+        return ${modelObjectName}Mapper.selectByExample(example);
+    }
+
+    /**
+     * 查询
+    <#list keys as key>
+     * @param ${key}
+    </#list>
+     * @return
+     */
+    public List<${modelClassName}> list(<#list keys as key>Field<${allFieldMap["${key}"]}> ${key}<#if keys?size != (key_index + 1)>, </#if></#list>){
         Example example = this.getExample(<#list keys as key>${key}<#if keys?size != (key_index + 1)>, </#if></#list>);
         return ${modelObjectName}Mapper.selectByExample(example);
     }

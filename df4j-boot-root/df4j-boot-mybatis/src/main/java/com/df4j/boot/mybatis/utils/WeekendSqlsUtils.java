@@ -1,96 +1,85 @@
 package com.df4j.boot.mybatis.utils;
 
-import com.df4j.base.exception.DfException;
-import com.df4j.base.range.Range;
+import com.df4j.base.form.BoundType;
+import com.df4j.base.form.Field;
+import com.df4j.base.form.RangeType;
 import com.df4j.base.utils.ValidateUtils;
 import tk.mybatis.mapper.weekend.Fn;
 import tk.mybatis.mapper.weekend.WeekendSqls;
-import static com.df4j.base.range.RangeType.*;
-import static com.df4j.base.range.BoundType.*;
+
+import static com.df4j.base.form.RangeType.*;
+import static com.df4j.base.form.BoundType.*;
 
 /**
  * 拼接WeekendSqls的工具类
  */
 public class WeekendSqlsUtils<T> {
-    public WeekendSqls<T> appendSql(WeekendSqls<T> sqls, Fn<T, Object> fn, Object value){
+    public WeekendSqls<T> appendSql(WeekendSqls<T> sqls, Fn<T, Object> fn, Object value) {
         // 如果值为空，不拼接
-        if(ValidateUtils.isNull(value)){
+        if (ValidateUtils.isNull(value)) {
             return sqls;
         }
         // 不是range子类
-        if(!(value instanceof Range)){
+        if (!(value instanceof Field)) {
             return sqls.andEqualTo(fn, value);
         }
-        Range range = (Range) value;
-        int rangeType = range.getRangeType();
-        int boundType = range.getBoundType();
 
-        // 该条件无筛选作用
-        if(rangeType == ALL){
-            return sqls;
-        }
-
+        Field field = (Field) value;
+        RangeType rangeType = field.getRangeType();
+        BoundType fromBoundType = field.getFromBoundType();
         // 等值范围
-        if(rangeType == EQUAL){
-            return sqls.andEqualTo(fn, value);
+        if (rangeType == EQUAL) {
+            return sqls.andEqualTo(fn, field.getFromValue());
         }
         // 大于范围
-        if(rangeType == GREATER){
-            if(boundType == EXCLUDE){
-                sqls.andGreaterThan(fn, value);
-            }else{
-                sqls.andGreaterThanOrEqualTo(fn, value);
+        if (rangeType == GREATER) {
+            if (fromBoundType == INCLUDE) {
+                sqls.andGreaterThanOrEqualTo(fn, field.getFromValue());
+            } else {
+                sqls.andGreaterThan(fn, field.getFromValue());
             }
         }
         // 小于范围
-        if(rangeType == LESS){
-            if(boundType == EXCLUDE){
-                sqls.andLessThan(fn, value);
-            }else{
-                sqls.andLessThanOrEqualTo(fn, value);
+        if (rangeType == LESS) {
+            if (fromBoundType == INCLUDE) {
+                sqls.andLessThanOrEqualTo(fn, field.getFromValue());
+            } else {
+                sqls.andLessThan(fn, field.getFromValue());
             }
         }
+
+        BoundType toBoundType = field.getToBoundType();
         // between
-        if(rangeType == BETWEEN){
-            if(boundType == EXCLUDE){
-                sqls.andGreaterThan(fn, value);
-                sqls.andLessThan(fn, range.getToRange());
-            }else if(boundType == INCLUDE){
-                sqls.andGreaterThanOrEqualTo(fn, value);
-                sqls.andLessThanOrEqualTo(fn, range.getToRange());
-            }else if(boundType == LEFT_INCLUDE){
-                sqls.andGreaterThanOrEqualTo(fn, value);
-                sqls.andLessThan(fn, range.getToRange());
-            }else if(boundType == RIGHT_INCLUDE){
-                sqls.andGreaterThan(fn, value);
-                sqls.andLessThanOrEqualTo(fn, range.getToRange());
+        if (rangeType == BETWEEN) {
+            if (fromBoundType == INCLUDE) {
+                sqls.andGreaterThanOrEqualTo(fn, field.getFromBoundType());
+            } else {
+                sqls.andGreaterThan(fn, field.getFromBoundType());
+            }
+            if (toBoundType == INCLUDE) {
+                sqls.andLessThanOrEqualTo(fn, field.getToValue());
+            } else {
+                sqls.andLessThan(fn, field.getToValue());
             }
             return sqls;
         }
         // not between
-        if(rangeType == NOT_BETWEEN){
-            if(boundType == EXCLUDE){
-                sqls.andLessThan(fn, value);
-                sqls.andGreaterThan(fn, range.getToRange());
-            }else if(boundType == INCLUDE){
-                sqls.andLessThanOrEqualTo(fn, value);
-                sqls.andGreaterThanOrEqualTo(fn, range.getToRange());
-            }else if(boundType == LEFT_INCLUDE){
-                sqls.andLessThanOrEqualTo(fn, value);
-                sqls.andGreaterThan(fn, range.getToRange());
-            }else if(boundType == RIGHT_INCLUDE){
-                sqls.andLessThan(fn, value);
-                sqls.andGreaterThanOrEqualTo(fn, range.getToRange());
+        if (rangeType == NOT_BETWEEN) {
+            if (fromBoundType == INCLUDE) {
+                sqls.andLessThanOrEqualTo(fn, field.getFromBoundType());
+            } else {
+                sqls.andLessThan(fn, field.getFromBoundType());
+            }
+            if (toBoundType == INCLUDE) {
+                sqls.andGreaterThanOrEqualTo(fn, field.getToValue());
+            } else {
+                sqls.andGreaterThan(fn, field.getToValue());
             }
             return sqls;
         }
         // 等于null
-        if(rangeType == EQUAL_NULL){
+        if (rangeType == EQUAL_NULL) {
             return sqls.andEqualTo(fn, null);
-        }
-        // 删选条件逻辑错误，不可能有任何记录满足条件
-        if(rangeType == NULL){
-            throw new DfException("rangeType为NULL，将没有记录满足条件");
         }
         return sqls;
     }
