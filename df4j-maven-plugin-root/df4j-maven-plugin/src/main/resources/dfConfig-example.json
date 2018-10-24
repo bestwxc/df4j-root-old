@@ -68,7 +68,10 @@
           }
         },
         "view": {
-          "enabled": false
+          "enabled": false,
+          "viewProjectPath": "/Users/wangxuecheng/Documents/workspace/dream-flower/df-admin/df-admin-static",
+          "viewPackage": "src/views",
+          "viewPathAndName": "SystemMenu/index.vue"
         }
       },
       "Department":{

@@ -1,6 +1,7 @@
 package com.df4j.plugin.maven.generate;
 
 import com.df4j.plugin.maven.config.ModelConfiguration;
+import com.df4j.plugin.maven.config.ViewConfiguration;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
@@ -46,16 +47,22 @@ public class BaseBusinessGenerate extends BaseGenerator{
         String controllerClass = this.getControllerClass();
         String serviceFilePath = projectPath + File.separator + serviceClass.replaceAll("\\.", separator) + ".java";
         String controllerFilePath = projectPath + File.separator + controllerClass.replaceAll("\\.", separator) + ".java";
-        String viewFilePath = null;
+        ViewConfiguration viewConfiguration = this.getConfiguration().getView();
+        File viewFolder = new File(viewConfiguration.getViewProjectPath(),
+                viewConfiguration.getViewPackage());
+        if(!viewFolder.exists()){
+            viewFolder.mkdirs();
+        }
+        File viewFile = new File(viewFolder, viewConfiguration.getViewPathAndName());
         if(this.getConfiguration().getService().isEnabled()){
             this.generateFile("service.ftl",root, serviceFilePath);
         }
         if(this.getConfiguration().getController().isEnabled()){
             this.generateFile("controller.ftl",root, controllerFilePath);
         }
-        /*if(this.getConfiguration().getView().isEnabled()){
-            this.generateFile("view.ftl",root, viewFilePath);
-        }*/
+        if(this.getConfiguration().getView().isEnabled()){
+            this.generateFile("view.ftl",root, viewFile.getAbsolutePath());
+        }
     }
 
     /**
@@ -92,6 +99,10 @@ public class BaseBusinessGenerate extends BaseGenerator{
         Writer writer = null;
         try{
             File targetFile = new File(filePath);
+            File folder = targetFile.getParentFile();
+            if(!folder.exists()){
+                folder.mkdirs();
+            }
             logger.info("ftlName:{},filePath:{},dataModel:{}",
                     ftlName, targetFile.getAbsoluteFile().getName(),dataModel);
             writer = new FileWriter(targetFile);
