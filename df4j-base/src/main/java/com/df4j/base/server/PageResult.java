@@ -7,7 +7,7 @@ public class PageResult<T> extends MultiResult<T>{
     /**
      * 分页当前页码
      */
-    private Integer pageNo = 1;
+    private Integer pageNum = 1;
 
     /**
      * 分页大小
@@ -19,19 +19,19 @@ public class PageResult<T> extends MultiResult<T>{
      */
     private Integer total = 100;
 
-    public PageResult(Integer pageNo, Integer pageSize, Integer total, List<T> result){
+    public PageResult(Integer pageNum, Integer pageSize, Integer total, List<T> result){
         super(true, result);
-        this.pageNo = pageNo;
+        this.pageNum = pageNum;
         this.pageSize = pageSize;
         this.total = total;
     }
 
-    public void setPageNo(Integer pageNo) {
-        this.pageNo = pageNo;
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
     }
 
-    public Integer getPageNo() {
-        return pageNo;
+    public Integer getPageNum() {
+        return pageNum;
     }
 
     public void setPageSize(Integer pageSize) {

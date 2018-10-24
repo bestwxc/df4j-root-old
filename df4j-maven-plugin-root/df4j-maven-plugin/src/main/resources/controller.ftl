@@ -8,9 +8,11 @@ import com.df4j.base.server.Result;
 import com.df4j.base.utils.MapUtils;
 import com.df4j.base.utils.FieldUtils;
 import com.df4j.base.utils.DateUtils;
+import com.df4j.base.utils.ValidateUtils;
 import com.df4j.base.form.Field;
 import com.df4j.base.form.BoundType;
 import com.df4j.base.utils.ResultUtils;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Date;
@@ -41,6 +43,14 @@ public class ${controllerClassName} {
      */
     @RequestMapping("/${controllerConfig.methodRequestMapping}/list")
     public Result<List<${modelClassName}>> list(@RequestBody Map<String,?> map){
+
+        // 分页页码
+        Integer pageNum = MapUtils.getIntegerFromMap(map, "pageNum", null);
+        // 分页大小
+        Integer pageSize = MapUtils.getIntegerFromMap(map, "pageSize", null);
+        // 排序
+        String sort = MapUtils.getStringFromMap(map, "sort", null);
+
         <#list keys as key>
             <#if listConfig["${key}"]??>
             <#else>
@@ -52,8 +62,16 @@ public class ${controllerClassName} {
                 </#if>
             </#if>
         </#list>
+
+        if(ValidateUtils.notNull(pageNum) && ValidateUtils.notNull(pageSize)){
+            PageHelper.startPage(pageNum, pageSize);
+        }
+        if(ValidateUtils.isNotEmptyString(sort)){
+            PageHelper.orderBy(sort);
+        }
+
         List<${modelClassName}> list = ${serviceObjectName}.list(<#list keys as key>${key}<#if keys?size != (key_index + 1)>, </#if></#list>);
-        return ResultUtils.success(list);
+        return ResultUtils.success(pageNum, pageSize, null, list);
     }
     </#if>
 

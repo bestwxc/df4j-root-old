@@ -4,6 +4,8 @@ import com.df4j.base.constants.ErrorCode;
 import com.df4j.base.server.MultiResult;
 import com.df4j.base.server.Result;
 import com.df4j.base.server.SingleResult;
+import com.github.pagehelper.Page;
+
 import java.util.List;
 
 /**
@@ -26,6 +28,9 @@ public class ResultUtils {
         if(result instanceof List){
             List list = (List)result;
             if(ValidateUtils.notNull(pageNo)){
+                if (list instanceof Page) {
+                    total = new Long(((Page) list).getTotal()).intValue();
+                }
                 returnResult = new PageResult(pageNo, pageSize, total, list);
             }else{
                 returnResult = new MultiResult(list);
