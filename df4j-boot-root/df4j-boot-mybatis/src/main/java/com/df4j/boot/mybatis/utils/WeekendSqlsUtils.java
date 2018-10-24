@@ -52,9 +52,9 @@ public class WeekendSqlsUtils<T> {
         // between
         if (rangeType == BETWEEN) {
             if (fromBoundType == INCLUDE) {
-                sqls.andGreaterThanOrEqualTo(fn, field.getFromBoundType());
+                sqls.andGreaterThanOrEqualTo(fn, field.getFromValue());
             } else {
-                sqls.andGreaterThan(fn, field.getFromBoundType());
+                sqls.andGreaterThan(fn, field.getFromValue());
             }
             if (toBoundType == INCLUDE) {
                 sqls.andLessThanOrEqualTo(fn, field.getToValue());
@@ -66,9 +66,9 @@ public class WeekendSqlsUtils<T> {
         // not between
         if (rangeType == NOT_BETWEEN) {
             if (fromBoundType == INCLUDE) {
-                sqls.andLessThanOrEqualTo(fn, field.getFromBoundType());
+                sqls.andLessThanOrEqualTo(fn, field.getFromValue());
             } else {
-                sqls.andLessThan(fn, field.getFromBoundType());
+                sqls.andLessThan(fn, field.getFromValue());
             }
             if (toBoundType == INCLUDE) {
                 sqls.andGreaterThanOrEqualTo(fn, field.getToValue());

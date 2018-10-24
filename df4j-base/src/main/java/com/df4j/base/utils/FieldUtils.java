@@ -12,7 +12,7 @@ import java.util.Map;
 import static com.df4j.base.form.RangeType.*;
 
 public class FieldUtils {
-    public Field getField(RangeType rangeType, Object fieldValue, Object fromValue, BoundType fromBoundType, Object toValue, BoundType toBoundType) {
+    public static Field getField(RangeType rangeType, Object fieldValue, Object fromValue, BoundType fromBoundType, Object toValue, BoundType toBoundType) {
         if (rangeType == EQUAL_NULL) {
             return FieldFactory.buildNull();
         } else if (rangeType == EQUAL) {
@@ -26,11 +26,11 @@ public class FieldUtils {
             }
             return FieldFactory.buildField(rangeType, fieldValue, fromBoundType, null, null);
         } else {
-            if (ValidateUtils.isNull(fromBoundType) && ValidateUtils.isNull(toBoundType)) {
+            if (ValidateUtils.isNull(fromValue) && ValidateUtils.isNull(toValue)) {
                 return null;
-            } else if (ValidateUtils.isNull(fromBoundType)) {
+            } else if (ValidateUtils.isNull(toValue)) {
                 return FieldFactory.buildField(GREATER, fromValue, fromBoundType, null, null);
-            } else if (ValidateUtils.isNull(toBoundType)) {
+            } else if (ValidateUtils.isNull(fromValue)) {
                 return FieldFactory.buildField(LESS, toValue, toBoundType, null, null);
             } else {
                 return FieldFactory.buildField(rangeType, fromValue, fromBoundType, toValue, toBoundType);
@@ -48,7 +48,7 @@ public class FieldUtils {
      * @param toBoundType
      * @return
      */
-    public Field<String> getStringField(Map<String, ?> map, String fieldName, boolean range, BoundType fromBoundType, BoundType toBoundType) {
+    public static Field<String> getStringField(Map<String, ?> map, String fieldName, boolean range, BoundType fromBoundType, BoundType toBoundType) {
         if (!range) {
             String fieldValue = MapUtils.getStringFromMap(map, fieldName, null);
             return getField(EQUAL, fieldValue, null, null, null, null);
@@ -69,7 +69,7 @@ public class FieldUtils {
      * @param toBoundType
      * @return
      */
-    public Field<String> getIntegerField(Map<String, ?> map, String fieldName, boolean range, BoundType fromBoundType, BoundType toBoundType) {
+    public static Field<Integer> getIntegerField(Map<String, ?> map, String fieldName, boolean range, BoundType fromBoundType, BoundType toBoundType) {
         if (!range) {
             Integer fieldValue = MapUtils.getIntegerFromMap(map, fieldName, null);
             return getField(EQUAL, fieldValue, null, null, null, null);
@@ -90,7 +90,7 @@ public class FieldUtils {
      * @param toBoundType
      * @return
      */
-    public Field<String> getLongField(Map<String, ?> map, String fieldName, boolean range, BoundType fromBoundType, BoundType toBoundType) {
+    public static Field<Long> getLongField(Map<String, ?> map, String fieldName, boolean range, BoundType fromBoundType, BoundType toBoundType) {
         if (!range) {
             Long fieldValue = MapUtils.getLongFromMap(map, fieldName, null);
             return getField(EQUAL, fieldValue, null, null, null, null);
@@ -111,7 +111,7 @@ public class FieldUtils {
      * @param toBoundType
      * @return
      */
-    public Field<String> getBigDecimalField(Map<String, ?> map, String fieldName, boolean range, BoundType fromBoundType, BoundType toBoundType) {
+    public static Field<BigDecimal> getBigDecimalField(Map<String, ?> map, String fieldName, boolean range, BoundType fromBoundType, BoundType toBoundType) {
         if (!range) {
             BigDecimal fieldValue = MapUtils.getBigDecimalFromMap(map, fieldName, null);
             return getField(EQUAL, fieldValue, null, null, null, null);
@@ -132,7 +132,7 @@ public class FieldUtils {
      * @param toBoundType
      * @return
      */
-    public Field<String> getDateField(Map<String, ?> map, String fieldName, String pattern, boolean range, BoundType fromBoundType, BoundType toBoundType) {
+    public static Field<Date> getDateField(Map<String, ?> map, String fieldName, String pattern, boolean range, BoundType fromBoundType, BoundType toBoundType) {
         if (!range) {
             Date fieldValue = MapUtils.getDateFromMap(map, fieldName, pattern, null);
             return getField(EQUAL, fieldValue, null, null, null, null);

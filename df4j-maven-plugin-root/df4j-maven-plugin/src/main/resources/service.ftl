@@ -188,7 +188,7 @@ public class ${modelClassName}Service {
     </#list>
      * @return
      */
-    private Example getExample(<#list keys as key>${allFieldMap["${key}"]} ${key}<#if keys?size != (key_index + 1)>,</#if></#list>){
+    private Example getExample(<#list keys as key>Object ${key}<#if keys?size != (key_index + 1)>,</#if></#list>){
         WeekendSqls<${modelClassName}> sqls = WeekendSqls.<${modelClassName}>custom();
         <#list keys as key>
         sqlsUtils.appendSql(sqls, ${modelClassName}::get${key?cap_first}, ${key});
