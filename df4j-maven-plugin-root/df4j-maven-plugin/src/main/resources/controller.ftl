@@ -18,7 +18,7 @@ import ${serviceClass};
 <#assign  keys=allFieldMap?keys/>
 <#assign  keys2=fieldMap?keys/>
 
-@RestController
+<#if controllerConfig.disableMapping == true>//</#if>@RestController
 @RequestMapping("${controllerConfig.classRequestMapping}")
 public class ${controllerClassName} {
 

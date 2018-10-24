@@ -47,6 +47,10 @@ public class ControllerConfiguration {
      */
     private Map<String,Object> delete;
 
+
+    /**
+     * 取消该类中方法的映射，用于继承
+     */
     private boolean disableMapping = false;
 
 
