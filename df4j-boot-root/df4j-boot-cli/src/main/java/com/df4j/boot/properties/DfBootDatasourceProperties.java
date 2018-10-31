@@ -1,48 +1,78 @@
 package com.df4j.boot.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import java.util.List;
+import java.util.Map;
 
 /**
  * SpringBoot datasource配置
  */
 @ConfigurationProperties(prefix = "df.boot.datasource")
 public class DfBootDatasourceProperties {
-    private boolean enableMultiDataSource;
-    private String multiDataSourceType;
-    private String defaultDataSourceKey;
-    private List<String> multiDataSourceList;
+    // 是否启用自定义数据源配置
+    private boolean enabled;
+    // 默认数据源
+    private String defaultKey;
+    // 数据源配置
+    private Map<String, DatasourceNodeProperties> datasources;
 
-    public boolean isEnableMultiDataSource() {
-        return enableMultiDataSource;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setEnableMultiDataSource(boolean enableMultiDataSource) {
-        this.enableMultiDataSource = enableMultiDataSource;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public String getMultiDataSourceType() {
-        return multiDataSourceType;
+    public String getDefaultKey() {
+        return defaultKey;
     }
 
-    public void setMultiDataSourceType(String multiDataSourceType) {
-        this.multiDataSourceType = multiDataSourceType;
+    public void setDefaultKey(String defaultKey) {
+        this.defaultKey = defaultKey;
     }
 
-    public String getDefaultDataSourceKey() {
-        return defaultDataSourceKey;
+    public Map<String, DatasourceNodeProperties> getDatasources() {
+        return datasources;
     }
 
-    public void setDefaultDataSourceKey(String defaultDataSourceKey) {
-        this.defaultDataSourceKey = defaultDataSourceKey;
+    public void setDatasources(Map<String, DatasourceNodeProperties> datasources) {
+        this.datasources = datasources;
     }
 
-    public List<String> getMultiDataSourceList() {
-        return multiDataSourceList;
-    }
+    /**
+     * 数据源节点配置
+     */
+    public static class DatasourceNodeProperties{
+        // 数据源类型
+        private String type;
+        // 主节点key
+        private String master;
+        // 详细节点配置
+        private Map<String, Map<String, Object>> nodes;
 
-    public void setMultiDataSourceList(List<String> multiDataSourceList) {
-        this.multiDataSourceList = multiDataSourceList;
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getMaster() {
+            return master;
+        }
+
+        public void setMaster(String master) {
+            this.master = master;
+        }
+
+        public Map<String, Map<String, Object>> getNodes() {
+            return nodes;
+        }
+
+        public void setNodes(Map<String, Map<String, Object>> nodes) {
+            this.nodes = nodes;
+        }
     }
 }
