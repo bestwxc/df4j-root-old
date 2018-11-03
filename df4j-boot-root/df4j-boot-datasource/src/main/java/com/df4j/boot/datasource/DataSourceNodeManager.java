@@ -51,27 +51,6 @@ public class DataSourceNodeManager {
     }
 
     /**
-     * 设置当前数据源
-     * @param dataSourceKey
-     * @param nodeKey
-     */
-    public static void setDataSource(String dataSourceKey, String nodeKey){
-        String selectKey = null;
-        Map<String, String> dataSourceNodes = nodesMap.get(dataSourceKey);
-        if(dataSourceNodes == null && dataSourceNodes.isEmpty()){
-            dataSourceNodes = nodesMap.get(defaultDataSource);
-            selectKey = dataSourceNodes.get(defaultNodeMap.get(defaultDataSource));
-        } else {
-            selectKey = dataSourceNodes.get(nodeKey);
-            if(ValidateUtils.isEmptyString(selectKey)){
-                selectKey = dataSourceNodes.get(defaultNodeMap.get(dataSourceKey));
-            }
-        }
-        currentDataSourceKey.set(selectKey);
-        logger.info("将当前dataSource设置为:{}, dataSourceKey:{}, nodeKey:{}", selectKey, dataSourceKey, nodeKey);
-    }
-
-    /**
      * 获取默认数据源Bean值
      * @return
      */
@@ -104,5 +83,36 @@ public class DataSourceNodeManager {
             selectKey = nodesMap.get(defaultDataSource).get(defaultNodeMap.get(defaultDataSource));
         }
         return selectKey;
+    }
+
+    /**
+     * 设置当前的数据源
+     * @param dataSource
+     * @param useMaster
+     */
+    public static void setDataSource(String dataSource, boolean useMaster){
+        String selectKey = null;
+        Map<String, String> dataSourceNodes = nodesMap.get(dataSource);
+        if(dataSourceNodes == null && dataSourceNodes.isEmpty()){
+            dataSourceNodes = nodesMap.get(defaultDataSource);
+            dataSource = defaultDataSource;
+        }
+        if(!useMaster){
+            selectKey = null;
+            logger.warn("暂未实现读写分离数据源，使用主数据源");
+        }
+        if(ValidateUtils.isEmptyString(selectKey)){
+            selectKey = defaultNodeMap.get(dataSource);
+        }
+        currentDataSourceKey.set(selectKey);
+        logger.info("将当前dataSource设置为:{}, dataSourceKey:{}, useMaster:{}", selectKey, dataSource, useMaster);
+    }
+
+    /**
+     * 设置当前数据源
+     * @param dataSource
+     */
+    public static void setDataSource(String dataSource){
+        setDataSource(dataSource, true);
     }
 }

@@ -46,8 +46,13 @@ public class DfBootDatasourceProperties {
     public static class DatasourceNodeProperties{
         // 数据源类型
         private String type;
+
+        // 适用的module名称
+        private List<String> modules;
+
         // 主节点key
         private String master;
+
         // 详细节点配置
         private Map<String, Map<String, Object>> nodes;
 
@@ -57,6 +62,14 @@ public class DfBootDatasourceProperties {
 
         public void setType(String type) {
             this.type = type;
+        }
+
+        public List<String> getModules() {
+            return modules;
+        }
+
+        public void setModules(List<String> modules) {
+            this.modules = modules;
         }
 
         public String getMaster() {

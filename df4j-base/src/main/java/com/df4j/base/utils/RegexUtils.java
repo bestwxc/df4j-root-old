@@ -40,4 +40,24 @@ public class RegexUtils {
     public static boolean match(CharSequence content, String regex){
         return Pattern.matches(regex, content);
     }
+
+    /**
+     * 匹配一条记录
+     * @param content
+     * @param regex
+     * @return
+     */
+    public static String getOneMatch(CharSequence content, String regex){
+        List<String> matches = getMatch(content, regex);
+        if(ValidateUtils.isEmpty(matches) || matches.size() > 1){
+            throw new DfException("匹配一条记录失败");
+        }
+        return matches.get(0);
+    }
+
+    public static void main(String[] args) {
+        String m = "com.df4j.module.test.service";
+        String regex = "(?<=module\\.).+(?=\\.service)";
+        System.out.println(getOneMatch(m, regex));
+    }
 }
