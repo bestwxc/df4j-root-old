@@ -31,8 +31,7 @@ public class DfDataSourceChangeAspect {
             " || execution(public * com..module.*.service.*.*(..))" +
             " || execution(public * cn..module.*.service.*.*(..))" +
             " || execution(public * org..module.*.service.*.*(..))" +
-            " || execution(public * net..module.*.service.*.*(..))" +
-            " || @annotation(com.df4j.boot.datasource.UseDataSource)")
+            " || execution(public * net..module.*.service.*.*(..))")
     public void useDataSource() {}
 
     @Before("useDataSource()")
