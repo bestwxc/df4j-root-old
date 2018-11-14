@@ -26,7 +26,9 @@ public class DfDataSourceChangeAspect {
     @Autowired
     private DfBootDatasourceProperties dfBootDatasourceProperties;
 
-    @Pointcut("execution(public * com..module.*.service.*.*(..))" +
+    @Pointcut("@annotation(com.df4j.boot.datasource.UseDataSource)" +
+            " || @within(com.df4j.boot.datasource.UseDataSource)" +
+            " || execution(public * com..module.*.service.*.*(..))" +
             " || execution(public * cn..module.*.service.*.*(..))" +
             " || execution(public * org..module.*.service.*.*(..))" +
             " || execution(public * net..module.*.service.*.*(..))" +
@@ -41,6 +43,9 @@ public class DfDataSourceChangeAspect {
         String dataSourceKey = null;
         String nodeKey = null;
         UseDataSource useDataSource = method.getAnnotation(UseDataSource.class);
+        if(ValidateUtils.isNull(useDataSource)){
+            useDataSource = joinPoint.getTarget().getClass().getAnnotation(UseDataSource.class);
+        }
         if(useDataSource != null){
             dataSourceKey = useDataSource.value();
         } else {
