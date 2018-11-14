@@ -1,5 +1,6 @@
 package com.df4j.boot.datasource;
 
+import com.df4j.base.utils.StringUtils;
 import com.df4j.base.utils.ValidateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,13 +98,14 @@ public class DataSourceNodeManager {
             dataSourceNodes = nodesMap.get(defaultDataSource);
             dataSource = defaultDataSource;
         }
+        String nodeKey = null;
         if(!useMaster){
-            selectKey = null;
             logger.warn("暂未实现读写分离数据源，使用主数据源");
         }
-        if(ValidateUtils.isEmptyString(selectKey)){
-            selectKey = defaultNodeMap.get(dataSource);
+        if(ValidateUtils.isEmptyString(nodeKey)){
+            nodeKey = defaultNodeMap.get(dataSource);
         }
+        selectKey = dataSource + StringUtils.objectNameToClassName(nodeKey) + "DataSource";
         currentDataSourceKey.set(selectKey);
         logger.info("将当前dataSource设置为:{}, dataSourceKey:{}, useMaster:{}", selectKey, dataSource, useMaster);
     }

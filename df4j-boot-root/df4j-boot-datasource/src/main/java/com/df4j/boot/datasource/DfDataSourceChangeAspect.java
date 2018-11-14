@@ -1,26 +1,21 @@
 package com.df4j.boot.datasource;
 
-
-import com.df4j.base.utils.JsonUtils;
 import com.df4j.base.utils.RegexUtils;
 import com.df4j.base.utils.ValidateUtils;
 import com.df4j.boot.properties.DfBootDatasourceProperties;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ReflectionUtils;
-
 import java.lang.reflect.Method;
 import java.util.List;
 
 @Component
+@Aspect
 @ConditionalOnProperty(prefix = "df.boot.datasource", name = "enabled", havingValue = "true")
 public class DfDataSourceChangeAspect {
 
@@ -41,7 +36,8 @@ public class DfDataSourceChangeAspect {
     @Before("useDataSource()")
     public void doBefore(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
-        Method method = ReflectionUtils.findMethod(joinPoint.getTarget().getClass(), methodName);
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
         String dataSourceKey = null;
         String nodeKey = null;
         UseDataSource useDataSource = method.getAnnotation(UseDataSource.class);
