@@ -94,9 +94,10 @@ public class DataSourceNodeManager {
     public static void setDataSource(String dataSource, boolean useMaster){
         String selectKey = null;
         Map<String, String> dataSourceNodes = nodesMap.get(dataSource);
-        if(dataSourceNodes == null && dataSourceNodes.isEmpty()){
+        if(dataSourceNodes == null || dataSourceNodes.isEmpty()){
             dataSourceNodes = nodesMap.get(defaultDataSource);
             dataSource = defaultDataSource;
+            logger.warn("未找到对应的datasource，使用默认的datasource");
         }
         String nodeKey = null;
         if(!useMaster){
