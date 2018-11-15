@@ -22,10 +22,12 @@ public class HttpDebugLogAspect {
 
     ThreadLocal<Long> startTime = new ThreadLocal<>();
 
-    @Pointcut("execution(public * com..module.*.controller.*.*(..))" +
-            " || execution(public * cn..module.*.controller.*.*(..))" +
-            " || execution(public * org..module.*.controller.*.*(..))" +
-            " || execution(public * net..module.*.controller.*.*(..))")
+    @Pointcut("@annotation(com.df4j.boot.web.aspect.PrintLog)" +
+            " || @within(com.df4j.boot.web.aspect.PrintLog)" +
+            " || execution(public * com..controller.*.*(..))" +
+            " || execution(public * cn..controller.*.*(..))" +
+            " || execution(public * org..controller.*.*(..))" +
+            " || execution(public * net..controller.*.*(..))")
     public void httpLog() {
 
     }
