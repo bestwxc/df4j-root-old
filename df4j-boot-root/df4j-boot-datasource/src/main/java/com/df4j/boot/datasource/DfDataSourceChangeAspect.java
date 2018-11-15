@@ -30,10 +30,10 @@ public class DfDataSourceChangeAspect {
 
     @Pointcut("@annotation(com.df4j.boot.datasource.UseDataSource)" +
             " || @within(com.df4j.boot.datasource.UseDataSource)" +
-            " || execution(public * com..module.*.service.*.*(..))" +
-            " || execution(public * cn..module.*.service.*.*(..))" +
-            " || execution(public * org..module.*.service.*.*(..))" +
-            " || execution(public * net..module.*.service.*.*(..))")
+            " || execution(public * com..service.*.*(..))" +
+            " || execution(public * cn..service.*.*(..))" +
+            " || execution(public * org..service.*.*(..))" +
+            " || execution(public * net..service.*.*(..))")
     public void useDataSource() {}
 
     @Before("useDataSource()")
