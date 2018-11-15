@@ -53,7 +53,6 @@ public class BaseBusinessGenerate extends BaseGenerator{
         if(!viewFolder.exists()){
             viewFolder.mkdirs();
         }
-        File viewFile = new File(viewFolder, viewConfiguration.getViewPathAndName());
         if(this.getConfiguration().getService().isEnabled()){
             this.generateFile("service.ftl",root, serviceFilePath);
         }
@@ -61,6 +60,7 @@ public class BaseBusinessGenerate extends BaseGenerator{
             this.generateFile("controller.ftl",root, controllerFilePath);
         }
         if(this.getConfiguration().getView().isEnabled()){
+            File viewFile = new File(viewFolder, viewConfiguration.getViewPathAndName());
             this.generateFile("view.ftl",root, viewFile.getAbsolutePath());
         }
     }
