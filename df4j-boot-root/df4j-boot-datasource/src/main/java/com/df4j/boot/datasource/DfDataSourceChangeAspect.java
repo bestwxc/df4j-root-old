@@ -10,12 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 import java.util.List;
 
 @Component
 @Aspect
+@Order(-1000)
 @ConditionalOnProperty(prefix = "df.boot.datasource", name = "enabled", havingValue = "true")
 public class DfDataSourceChangeAspect {
 
@@ -67,7 +69,7 @@ public class DfDataSourceChangeAspect {
 
     @After("useDataSource()")
     public void doAfter() {
-
+        DataSourceNodeManager.cleanDataSource();
     }
 
     @AfterReturning(returning = "object", pointcut = "useDataSource()")

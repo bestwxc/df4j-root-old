@@ -118,4 +118,9 @@ public class DataSourceNodeManager {
     public static void setDataSource(String dataSource){
         setDataSource(dataSource, true);
     }
+
+    public static void cleanDataSource(){
+        logger.info("清理掉当前线程的datasourceKey");
+        currentDataSourceKey.remove();
+    }
 }
