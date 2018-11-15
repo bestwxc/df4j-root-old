@@ -12,7 +12,7 @@ public class DfDynamicDataSource extends AbstractRoutingDataSource {
     @Override
     protected Object determineCurrentLookupKey() {
         String key = DataSourceNodeManager.getDataSourceKey();
-        logger.info("从[{}]数据源获取连接", key);
+        logger.debug("从[{}]数据源获取连接", key);
         return key;
     }
 }

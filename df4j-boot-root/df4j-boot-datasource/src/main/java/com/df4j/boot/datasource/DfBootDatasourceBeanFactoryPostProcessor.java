@@ -35,7 +35,7 @@ public class DfBootDatasourceBeanFactoryPostProcessor
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 
-        logger.info("开始配置自定义多数据源");
+        logger.debug("开始配置自定义多数据源");
         // 获取配置的对象
         Environment environment = beanFactory.getBean(Environment.class);
         DfBootDatasourceProperties dfBootDatasourceProperties = new DfBootDatasourceProperties();
@@ -53,7 +53,7 @@ public class DfBootDatasourceBeanFactoryPostProcessor
             Map<String, Map<String, Object>> nodes = datasource.getNodes();
             Map<String, String> nodeBeanKeys = new HashMap<>();
             for(String nodeKey: nodes.keySet()){
-                logger.info("开始配置{}数据源{}节点", datasourceKey, nodeKey);
+                logger.debug("开始配置{}数据源{}节点", datasourceKey, nodeKey);
                 String beanName = datasourceKey + StringUtils.objectNameToClassName(nodeKey) + "DataSource";
                 DataSource dataSource = this.initDataSource(environment, datasource.getType(), datasourceKey, nodeKey);
                 nodeBeanKeys.put(nodeKey, beanName);
@@ -68,7 +68,7 @@ public class DfBootDatasourceBeanFactoryPostProcessor
         dynamicDataSource.setTargetDataSources(targetDataSources);
         dynamicDataSource.afterPropertiesSet();
         factory.registerSingleton("dataSource", dynamicDataSource);
-        logger.info("配置自定义多数据源完成");
+        logger.debug("配置自定义多数据源完成");
     }
 
     private DataSource initDataSource(Environment environment, String type, String datasourceKey, String nodeKey){

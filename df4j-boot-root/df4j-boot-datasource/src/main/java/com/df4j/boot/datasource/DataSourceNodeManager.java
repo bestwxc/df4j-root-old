@@ -101,14 +101,14 @@ public class DataSourceNodeManager {
         }
         String nodeKey = null;
         if(!useMaster){
-            logger.warn("暂未实现读写分离数据源，使用主数据源");
+            logger.info("暂未实现读写分离数据源，使用主数据源");
         }
         if(ValidateUtils.isEmptyString(nodeKey)){
             nodeKey = defaultNodeMap.get(dataSource);
         }
         selectKey = dataSource + StringUtils.objectNameToClassName(nodeKey) + "DataSource";
         currentDataSourceKey.set(selectKey);
-        logger.info("将当前dataSource设置为:{}, dataSourceKey:{}, useMaster:{}", selectKey, dataSource, useMaster);
+        logger.debug("将当前dataSource设置为:{}, dataSourceKey:{}, useMaster:{}", selectKey, dataSource, useMaster);
     }
 
     /**
@@ -120,7 +120,7 @@ public class DataSourceNodeManager {
     }
 
     public static void cleanDataSource(){
-        logger.info("清理掉当前线程的datasourceKey");
+        logger.debug("清理掉当前线程的datasourceKey");
         currentDataSourceKey.remove();
     }
 }
