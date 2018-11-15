@@ -49,7 +49,7 @@ public class HttpDebugLogAspect {
                 }
             }
         }
-        logger.info("request info：url:{},method:{},ip:{},function:{},args:{}",
+        logger.debug("request info：url:{},method:{},ip:{},function:{},args:{}",
                 request.getRequestURL(),
                 request.getMethod(),
                 request.getRemoteAddr(),
@@ -60,11 +60,11 @@ public class HttpDebugLogAspect {
 
     @After("httpLog()")
     public void doAfter() {
-        logger.info("current request cost:{} ms", System.currentTimeMillis() - startTime.get());
+        logger.debug("current request cost:{} ms", System.currentTimeMillis() - startTime.get());
     }
 
     @AfterReturning(returning = "object", pointcut = "httpLog()")
     public void afterReturning(Object object) {
-        logger.info("response info:{}", JsonUtils.writeObjectAsString(object));
+        logger.debug("response info:{}", JsonUtils.writeObjectAsString(object));
     }
 }
