@@ -63,7 +63,10 @@ public class DfDataSourceChangeAspect {
                 }
             }
         }
-        boolean useSlave = methodName.startsWith("select") || methodName.startsWith("query") || methodName.startsWith("list");
+        boolean useSlave = dfBootDatasourceProperties.getDatasources().get(dataSourceKey).isEnableReadNodes();
+        if(useSlave){
+            useSlave = methodName.startsWith("select") || methodName.startsWith("query") || methodName.startsWith("list");
+        }
         DataSourceNodeManager.setDataSource(dataSourceKey, !useSlave);
     }
 

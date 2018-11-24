@@ -53,6 +53,9 @@ public class DfBootDatasourceProperties {
         // 主节点key
         private String master;
 
+        // 开启读写分离，支持读库
+        private boolean enableReadNodes = false;
+
         // 详细节点配置
         private Map<String, Map<String, Object>> nodes;
 
@@ -78,6 +81,14 @@ public class DfBootDatasourceProperties {
 
         public void setMaster(String master) {
             this.master = master;
+        }
+
+        public boolean isEnableReadNodes() {
+            return enableReadNodes;
+        }
+
+        public void setEnableReadNodes(boolean enableReadNodes) {
+            this.enableReadNodes = enableReadNodes;
         }
 
         public Map<String, Map<String, Object>> getNodes() {
