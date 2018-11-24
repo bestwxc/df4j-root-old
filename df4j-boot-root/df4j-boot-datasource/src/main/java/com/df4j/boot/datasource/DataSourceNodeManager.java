@@ -1,11 +1,14 @@
 package com.df4j.boot.datasource;
 
+import com.df4j.base.utils.NextKey;
 import com.df4j.base.utils.StringUtils;
 import com.df4j.base.utils.ValidateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 动态数据源节点管理器
@@ -22,6 +25,9 @@ public class DataSourceNodeManager {
     private static Map<String,String> defaultNodeMap = new HashMap<>();
     // 节点
     private static Map<String, Map<String, String>> nodesMap = new HashMap<>();
+    // 从节点keyMap
+    private static Map<String, NextKey<String>> slaveMap = new HashMap<>();
+
 
     /**
      * 设置默认的数据源key
@@ -38,8 +44,15 @@ public class DataSourceNodeManager {
      * @param nodes
      */
     public synchronized static void addDataSource(String dataSourceKey, String defaultNodeKey, Map<String,String> nodes){
+        // 数据库主节点
         defaultNodeMap.put(dataSourceKey, defaultNodeKey);
+        // 各节点引用
         nodesMap.put(dataSourceKey, nodes);
+        // 从节点引用
+        Set<String> nodeKeys = nodes.keySet();
+        nodeKeys.remove(defaultNodeKey);
+        NextKey<String> slaveKeys = new NextKey<>(nodeKeys);
+        slaveMap.put(dataSourceKey, slaveKeys);
     }
 
     /**
@@ -97,11 +110,12 @@ public class DataSourceNodeManager {
         if(dataSourceNodes == null || dataSourceNodes.isEmpty()){
             dataSourceNodes = nodesMap.get(defaultDataSource);
             dataSource = defaultDataSource;
-            logger.warn("未找到对应的datasource，使用默认的datasource");
+            logger.info("未找到对应的datasource，使用默认的datasource");
         }
         String nodeKey = null;
         if(!useMaster){
-            logger.info("暂未实现读写分离数据源，使用主数据源");
+            nodeKey = slaveMap.get(dataSource).nextKey();
+            logger.debug("获取{}数据源从节点:{}", dataSource, nodeKey);
         }
         if(ValidateUtils.isEmptyString(nodeKey)){
             nodeKey = defaultNodeMap.get(dataSource);
