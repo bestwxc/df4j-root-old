@@ -44,8 +44,10 @@ public class DfDataSourceChangeAspect {
         String dataSourceKey = null;
         String nodeKey = null;
         UseDataSource useDataSource = method.getAnnotation(UseDataSource.class);
+        boolean useMaster = useDataSource != null ? useDataSource.useMaster() : false;
         if(ValidateUtils.isNull(useDataSource)){
             useDataSource = joinPoint.getTarget().getClass().getAnnotation(UseDataSource.class);
+            useMaster = useDataSource.useMaster();
         }
         if(useDataSource != null){
             dataSourceKey = useDataSource.value();
@@ -64,7 +66,8 @@ public class DfDataSourceChangeAspect {
             }
         }
         boolean useSlave = dfBootDatasourceProperties.getDatasources().get(dataSourceKey).isEnableReadNodes();
-        if(useSlave){
+        if(!useMaster && useSlave){
+            // 注解无标注使用master 且 开启使用从库
             useSlave = methodName.startsWith("select") || methodName.startsWith("query") || methodName.startsWith("list");
         }
         DataSourceNodeManager.setDataSource(dataSourceKey, !useSlave);
