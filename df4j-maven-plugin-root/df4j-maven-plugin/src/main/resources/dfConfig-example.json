@@ -47,7 +47,8 @@
         "modelClassName": "SystemMenu",
         "service": {
           "enabled": true,
-          "serviceClassName": "SystemMenuService"
+          "serviceClassName": "SystemMenuService",
+          "idGeneratorKey": ""
         },
         "controller": {
           "enabled": true,
