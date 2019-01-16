@@ -3,6 +3,7 @@ package ${basePackage}.${moduleName}.service;
 import com.df4j.base.utils.ValidateUtils;
 import com.df4j.boot.mybatis.utils.WeekendSqlsUtils;
 import com.df4j.base.form.Field;
+import com.df4j.base.jdbc.IdGenerator;
 import ${basePackage}.${moduleName}.mapper.${modelClassName}Mapper;
 import ${basePackage}.${moduleName}.model.${modelClassName};
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class ${modelClassName}Service {
 
     @Autowired
     private ${modelClassName}Mapper ${modelObjectName}Mapper;
+
+    @Autowired
+    private IdGenerator<Long> idGenerator;
 
     private WeekendSqlsUtils<${modelClassName}> sqlsUtils = new WeekendSqlsUtils<>();
 
@@ -33,6 +37,10 @@ public class ${modelClassName}Service {
      */
     public ${modelClassName} add(<#list keys2 as key>${fieldMap["${key}"]} ${key}<#if keys2?size != (key_index + 1)>, </#if></#list>){
         ${modelClassName} ${modelObjectName} = new ${modelClassName}();
+        <#if config.service.idGeneratorKey??>
+        Long id = idGenerator.next("${config.service.idGeneratorKey}");
+        </#if>
+        ${modelObjectName}.setId(id);
         setObject(${modelObjectName},<#list keys2 as key>${key}<#if keys2?size != (key_index + 1)>,</#if></#list>);
         Date now = new Date();
         ${modelObjectName}.setCreateTime(now);

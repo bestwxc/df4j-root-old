@@ -14,6 +14,11 @@ public class ServiceConfiguration {
      */
     private String serviceClassName;
 
+    /**
+     * id生成Key
+     */
+    private String idGeneratorKey;
+
     public boolean isEnabled() {
         return enabled;
     }
@@ -28,5 +33,13 @@ public class ServiceConfiguration {
 
     public void setServiceClassName(String serviceClassName) {
         this.serviceClassName = serviceClassName;
+    }
+
+    public String getIdGeneratorKey() {
+        return idGeneratorKey;
+    }
+
+    public void setIdGeneratorKey(String idGeneratorKey) {
+        this.idGeneratorKey = idGeneratorKey;
     }
 }
