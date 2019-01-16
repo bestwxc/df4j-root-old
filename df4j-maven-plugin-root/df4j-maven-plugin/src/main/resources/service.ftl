@@ -39,8 +39,8 @@ public class ${modelClassName}Service {
         ${modelClassName} ${modelObjectName} = new ${modelClassName}();
         <#if config.service.idGeneratorKey??>
         Long id = idGenerator.next("${config.service.idGeneratorKey}");
-        </#if>
         ${modelObjectName}.setId(id);
+        </#if>
         setObject(${modelObjectName},<#list keys2 as key>${key}<#if keys2?size != (key_index + 1)>,</#if></#list>);
         Date now = new Date();
         ${modelObjectName}.setCreateTime(now);

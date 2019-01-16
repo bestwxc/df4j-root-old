@@ -11,10 +11,8 @@ import com.df4j.base.utils.RegexUtils;
 import com.df4j.base.utils.ValidateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+
+import java.io.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -106,7 +104,7 @@ public class BaseBusinessGenerate extends BaseGenerator{
             }
             logger.info("ftlName:{},filePath:{},dataModel:{}",
                     ftlName, targetFile.getAbsoluteFile().getName(),dataModel);
-            writer = new FileWriter(targetFile);
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(targetFile),"UTF-8"));
             template.process(dataModel, writer);
             logger.info("文件{}生成成功",filePath);
         }catch (Exception e){
