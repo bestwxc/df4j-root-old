@@ -99,7 +99,7 @@ public class ${modelClassName}Service {
      * @return
      */
     public List<${modelClassName}> list(<#list keys2 as key>${allFieldMap["${key}"]} ${key}<#if keys2?size != (key_index + 1)>, </#if></#list>){
-        return this.list(<#list keys as key><#if keys2?seq_contains(key)>${key}<#else>null</#if><#if keys?size != (key_index + 1)>, </#if></#list>);
+        return this.list(<#list keys as key><#if keys?seq_contains(key)>${key}<#else>null</#if><#if keys?size != (key_index + 1)>, </#if></#list>);
     }
 
     /**
