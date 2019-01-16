@@ -11,26 +11,7 @@
     <artifactId>df4j-cloud-root</artifactId>
     <packaging>pom</packaging>
     <description>df SpringCloud公共pom</description>
-    <dependencies>
-        <dependency>
-            <groupId>com.df4j</groupId>
-            <artifactId>df4j-boot-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>df4j-cloud-dependencies</module>
+    </modules>
 </project>
