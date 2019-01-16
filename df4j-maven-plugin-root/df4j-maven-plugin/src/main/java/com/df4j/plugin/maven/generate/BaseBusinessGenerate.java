@@ -73,6 +73,7 @@ public class BaseBusinessGenerate extends BaseGenerator{
         cfg.setClassForTemplateLoading(this.getClass(),"/");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+        cfg.setOutputEncoding("UTF-8");
     }
 
     /**
