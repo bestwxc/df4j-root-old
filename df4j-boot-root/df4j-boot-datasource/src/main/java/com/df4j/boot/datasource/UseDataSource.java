@@ -9,4 +9,5 @@ import java.lang.annotation.*;
 @Documented
 public @interface UseDataSource {
     String value() default "";
+    boolean useMaster() default false;
 }
