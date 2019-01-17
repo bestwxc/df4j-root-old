@@ -5,10 +5,8 @@ import com.df4j.base.utils.StringUtils;
 import com.df4j.base.utils.ValidateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
 
 /**
  * 动态数据源节点管理器
@@ -50,8 +48,10 @@ public class DataSourceNodeManager {
         nodesMap.put(dataSourceKey, nodes);
         // 从节点引用
         Set<String> nodeKeys = nodes.keySet();
-        nodeKeys.remove(defaultNodeKey);
-        NextKey<String> slaveKeys = new NextKey<>(nodeKeys);
+        Set<String> slaveNodeKeys = new HashSet<>();
+        slaveNodeKeys.addAll(nodeKeys);
+        slaveNodeKeys.remove(defaultNodeKey);
+        NextKey<String> slaveKeys = new NextKey<>(slaveNodeKeys);
         slaveMap.put(dataSourceKey, slaveKeys);
     }
 
