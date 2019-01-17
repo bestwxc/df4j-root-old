@@ -166,7 +166,7 @@ public class ${modelClassName}Service {
      */
     public int logicDelete(Long id){
         ${modelClassName} ${modelObjectName} = ${modelObjectName}Mapper.selectByPrimaryKey(id);
-        List<${modelClassName}> list = this.list(<#list keys as key><#if ukKeys?seq_contains(key)>${key}<#else>null</#if><#if keys?size != (key_index + 1)>, </#if></#list>);
+        List<${modelClassName}> list = this.list(<#list keys as key><#if ukKeys?seq_contains(key)>${modelObjectName}.get${key?cap_first}()<#else>null</#if><#if keys?size != (key_index + 1)>, </#if></#list>);
         ${modelClassName} max${modelClassName} = list.stream().max((${modelObjectName}1, ${modelObjectName}2) -> ${modelObjectName}1.get${deleteFiledKey?cap_first}() - ${modelObjectName}2.get${deleteFiledKey?cap_first}()).get();
         this.update(id<#list keys2 as key><#if key != deleteFiledKey>, null<#else>, max${modelClassName}.get${deleteFiledKey?cap_first}() + 1</#if></#list>);
         return 1;
