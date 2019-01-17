@@ -30,7 +30,7 @@ public class ModelConfiguration {
     /**
      * 是否支持逻辑删除
      */
-    private boolean loginDelete = false;
+    private boolean logicDelete = false;
 
     /**
      * 唯一建字段
@@ -84,12 +84,12 @@ public class ModelConfiguration {
         this.modelClassName = modelClassName;
     }
 
-    public boolean isLoginDelete() {
-        return loginDelete;
+    public boolean isLogicDelete() {
+        return logicDelete;
     }
 
-    public void setLoginDelete(boolean loginDelete) {
-        this.loginDelete = loginDelete;
+    public void setLogicDelete(boolean logicDelete) {
+        this.logicDelete = logicDelete;
     }
 
     public String getUkColumns() {

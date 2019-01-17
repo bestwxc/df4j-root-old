@@ -117,7 +117,7 @@ public class BaseBusinessGenerate extends BaseGenerator{
     public Object getDataModel(){
         String moduleName = this.getConfiguration().getModuleName();
         String modelClassName = this.getConfiguration().getModelClassName();
-        boolean isLoginDelete = this.getConfiguration().isLoginDelete();
+        boolean isLogicDelete = this.getConfiguration().isLogicDelete();
         String ukColumns = this.getConfiguration().getUkColumns();
         String modelObjectName = classNameToObjectName(modelClassName);
         String modelClass = this.getModelClass();
@@ -135,7 +135,7 @@ public class BaseBusinessGenerate extends BaseGenerator{
         root.put("basePackage", basePackage);
         root.put("moduleName", moduleName);
         root.put("modelClassName", modelClassName);
-        root.put("isLoginDelete", isLoginDelete);
+        root.put("isLogicDelete", isLogicDelete);
         root.put("ukColumns", ukColumns);
         root.put("modelObjectName", modelObjectName);
         root.put("modelClass", modelClass);
@@ -166,7 +166,7 @@ public class BaseBusinessGenerate extends BaseGenerator{
         }
         if(!fieldMap.containsKey("flag") || ValidateUtils.isEmptyString(ukColumns)){
             logger.warn("配置开启了逻辑删除，但是未在实体中找到flag,或未配置ukColumns,无法使用逻辑删除");
-            root.put("isLoginDelete", false);
+            root.put("isLogicDelete", false);
         }
         root.put("allFieldMap", allFieldMap);
         root.put("fieldMap", fieldMap);

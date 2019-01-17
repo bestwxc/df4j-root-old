@@ -110,7 +110,7 @@ public class ${modelClassName}Service {
     public ${modelClassName} listOne(Long id){
         return ${modelObjectName}Mapper.selectByPrimaryKey(id);
     }
-<#if isLoginDelete>
+<#if isLogicDelete>
     <#assign ukKeys=ukColumns?split(",")/>
     /**
      * 查询一个
@@ -158,7 +158,7 @@ public class ${modelClassName}Service {
         return this.delete(<#list keys as key> <#if key_index == 0>id<#else>null</#if><#if keys?size != (key_index + 1)>,</#if></#list>);
     }
 
-<#if isLoginDelete>
+<#if isLogicDelete>
     /**
      * 逻辑删除
      * @param id
