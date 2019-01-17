@@ -38,6 +38,11 @@ public class ModelConfiguration {
     private String ukColumns;
 
     /**
+     * 表示删除用的键值
+     */
+    private String deleteFiledKey = "flag";
+
+    /**
      * Service配置
      */
     private ServiceConfiguration service;
@@ -98,6 +103,14 @@ public class ModelConfiguration {
 
     public void setUkColumns(String ukColumns) {
         this.ukColumns = ukColumns;
+    }
+
+    public void setDeleteFiledKey(String deleteFiledKey) {
+        this.deleteFiledKey = deleteFiledKey;
+    }
+
+    public String getDeleteFiledKey() {
+        return deleteFiledKey;
     }
 
     public ServiceConfiguration getService() {

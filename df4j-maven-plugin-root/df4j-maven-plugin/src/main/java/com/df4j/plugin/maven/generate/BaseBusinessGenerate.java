@@ -127,6 +127,7 @@ public class BaseBusinessGenerate extends BaseGenerator{
         String controllerClass = this.getControllerClass();
         String controllerClassName = this.getControllerClassName();
         String controllerObjectName = classNameToObjectName(controllerClassName);
+        String deleteFiledKey = this.getConfiguration().getDeleteFiledKey();
 
         Map<String, Object> root = new HashMap();
         String basePackage = this.getBasePackage();
@@ -137,6 +138,7 @@ public class BaseBusinessGenerate extends BaseGenerator{
         root.put("modelClassName", modelClassName);
         root.put("isLogicDelete", isLogicDelete);
         root.put("ukColumns", ukColumns);
+        root.put("deleteFiledKey", deleteFiledKey);
         root.put("modelObjectName", modelObjectName);
         root.put("modelClass", modelClass);
         root.put("serviceClass", serviceClass);
@@ -164,7 +166,7 @@ public class BaseBusinessGenerate extends BaseGenerator{
                 fieldMap.put(key,ss[1]);
             }
         }
-        if(!fieldMap.containsKey("flag") || ValidateUtils.isEmptyString(ukColumns)){
+        if(!fieldMap.containsKey(deleteFiledKey) || ValidateUtils.isEmptyString(ukColumns)){
             logger.warn("配置开启了逻辑删除，但是未在实体中找到flag,或未配置ukColumns,无法使用逻辑删除");
             root.put("isLogicDelete", false);
         }

@@ -120,7 +120,7 @@ public class ${modelClassName}Service {
      * @return
      */
     public ${modelClassName} listOne(<#list ukKeys as key>${allFieldMap["${key}"]} ${key}<#if ukKeys?size != (key_index + 1)>, </#if></#list>){
-        return listOne(null, <#list keys2 as key><#if ukKeys?seq_contains(key)>${key}, <#elseif key == "flag">0, <#else>null, </#if></#list>null, null);
+        return listOne(null, <#list keys2 as key><#if ukKeys?seq_contains(key)>${key}, <#elseif key == deleteFiledKey>0, <#else>null, </#if></#list>null, null);
     }
 </#if>
 
@@ -167,8 +167,8 @@ public class ${modelClassName}Service {
     public int logicDelete(Long id){
         ${modelClassName} ${modelObjectName} = ${modelObjectName}Mapper.selectByPrimaryKey(id);
         List<${modelClassName}> list = this.list(null, <#list keys2 as key><#if ukColumns?contains(key)>${modelObjectName}.get${key?cap_first}(), <#else>null, </#if></#list>null, null);
-        ${modelClassName} max${modelClassName} = list.stream().max((${modelObjectName}1, ${modelObjectName}2) -> ${modelObjectName}1.getFlag() - ${modelObjectName}2.getFlag()).get();
-        this.update(id<#list keys2 as key><#if key != 'flag'>, null<#else>, max${modelClassName}.getFlag() + 1</#if></#list>);
+        ${modelClassName} max${modelClassName} = list.stream().max((${modelObjectName}1, ${modelObjectName}2) -> ${modelObjectName}1.get${deleteFiledKey?cap_first}() - ${modelObjectName}2.get${deleteFiledKey?cap_first}()).get();
+        this.update(id<#list keys2 as key><#if key != deleteFiledKey>, null<#else>, max${modelClassName}.get${deleteFiledKey?cap_first}() + 1</#if></#list>);
         return 1;
     }
 </#if>
