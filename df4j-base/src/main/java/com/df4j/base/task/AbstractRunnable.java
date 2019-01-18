@@ -1,5 +1,6 @@
 package com.df4j.base.task;
 
+import com.df4j.base.exception.DfException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,13 @@ public abstract class AbstractRunnable implements Runnable{
                     this.getName(), System.currentTimeMillis() - beginTime.get());
             beginTime.remove();
         }catch (Throwable e){
-            logger.error("Task-" + this.getName() + " error", e);
+            String errorMsg = "Task-" + this.getName() + " error";
+            if(e instanceof Exception){
+                throw new DfException(errorMsg, e);
+            }else{
+                logger.error(errorMsg, e);
+                throw e;
+            }
         }
     }
 
