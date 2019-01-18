@@ -44,11 +44,10 @@ public class DfDataSourceChangeAspect {
         String dataSourceKey = null;
         String nodeKey = null;
         UseDataSource useDataSource = method.getAnnotation(UseDataSource.class);
-        boolean useMaster = useDataSource != null ? useDataSource.useMaster() : false;
         if(ValidateUtils.isNull(useDataSource)){
             useDataSource = joinPoint.getTarget().getClass().getAnnotation(UseDataSource.class);
-            useMaster = useDataSource.useMaster();
         }
+        boolean useMaster = useDataSource != null ? useDataSource.useMaster() : false;
         if(useDataSource != null){
             dataSourceKey = useDataSource.value();
         } else {
