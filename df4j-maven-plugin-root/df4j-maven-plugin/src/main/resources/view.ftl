@@ -37,19 +37,19 @@ export default {
         ],
         list: {
           enabled: ${listConfig.enabled?c},
-          url: '/api/${controllerConfig.classRequestMapping}/${controllerConfig.methodRequestMapping}/list'
+          url: '${controllerConfig.classRequestMapping}/${controllerConfig.methodRequestMapping}/list'
         },
         add: {
           enabled: ${addConfig.enabled?c},
-          url: '/api/${controllerConfig.classRequestMapping}/${controllerConfig.methodRequestMapping}/add'
+          url: '${controllerConfig.classRequestMapping}/${controllerConfig.methodRequestMapping}/add'
         },
         update: {
           enabled: ${updateConfig.enabled?c},
-          url: '/api/${controllerConfig.classRequestMapping}/${controllerConfig.methodRequestMapping}/update'
+          url: '${controllerConfig.classRequestMapping}/${controllerConfig.methodRequestMapping}/update'
         },
         del: {
           enabled: ${deleteConfig.enabled?c},
-          url: '/api/${controllerConfig.classRequestMapping}/${controllerConfig.methodRequestMapping}/delete'
+          url: '${controllerConfig.classRequestMapping}/${controllerConfig.methodRequestMapping}/delete'
         },
         extBtns: [
           // {type: 'success', text: '关联资源', icon: 'el-icon-edit', event: 'showRelateResourcePage', judgeSelectOne: true, judegNoChild: true}
