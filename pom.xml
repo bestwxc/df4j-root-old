@@ -76,7 +76,7 @@
         <!--cache-->
         <ehcache3.version>3.6.0</ehcache3.version>
 
-        <spring-session-bom.version>Apple-SR5</spring-session-bom.version>
+        <spring-session-bom.version>Bean-SR2</spring-session-bom.version>
 
         <!--插件版本管理-->
         <maven-plugin-plugin.version>3.5.2</maven-plugin-plugin.version>
