@@ -11,18 +11,18 @@ public class CurrentUserUtils {
     public static String getUserName(){
         Subject subject = SecurityUtils.getSubject();
         if(ValidateUtils.isNull(subject)){
-            throw new BusinessException(ErrorCode.UNLOGIN, "未登录");
+            return null;
         }
         if(!subject.isAuthenticated()){
-            throw new BusinessException(ErrorCode.UNLOGIN, "未登录");
+            return null;
         }
         Object object = subject.getPrincipal();
         if(ValidateUtils.isNull(object)){
-            throw new DfException("当前登陆用户名为空");
+            return null;
         }
         String userName = String.valueOf(object);
         if(ValidateUtils.isEmptyString(userName)){
-            throw new DfException("当前登陆用户名为空");
+            return null;
         }
         return userName;
     }
