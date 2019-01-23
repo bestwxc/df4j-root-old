@@ -55,7 +55,7 @@ public enum DataSourceType {
         try {
             return DataSourceType.valueOf(name.toUpperCase());
         }catch (Exception e){
-            throw new DfException("[" + name + "]数据源类型不匹配");
+            throw new DfException("[" + name + "]数据源类型不匹配", e);
         }
     }
 }

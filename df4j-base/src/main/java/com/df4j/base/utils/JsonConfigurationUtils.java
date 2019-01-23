@@ -43,7 +43,7 @@ public class JsonConfigurationUtils<T> {
             T t = JsonUtils.getObjectFromString(content, clazz);
             return t;
         }catch (Exception e){
-            throw new DfException("解析配置文件异常");
+            throw new DfException("解析配置文件异常", e);
         }
     }
 
