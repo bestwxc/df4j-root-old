@@ -58,8 +58,6 @@ public class ${controllerClassName} {
         //${allFieldMap["${key}"]} ${key} = MapUtils.get${allFieldMap["${key}"]}FromMap(map, "${key}", null);
                 <#if allFieldMap["${key}"] == "Date">
         Field<${allFieldMap["${key}"]}> ${key} = FieldUtils.get${allFieldMap["${key}"]}Field(map, "${key}", DateUtils.DATE_TIME_PATTERN, false, BoundType.INCLUDE, BoundType.INCLUDE);
-                <#elseif key == "deleted">
-        Field<${allFieldMap["${key}"]}> ${key} = FieldUtils.get${allFieldMap["${key}"]}Field(map, "${key}", 0, false, BoundType.INCLUDE, BoundType.INCLUDE);
                 <#else>
         Field<${allFieldMap["${key}"]}> ${key} = FieldUtils.get${allFieldMap["${key}"]}Field(map, "${key}", false, BoundType.INCLUDE, BoundType.INCLUDE);
                 </#if>
