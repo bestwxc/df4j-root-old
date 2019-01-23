@@ -119,7 +119,7 @@ public class ${controllerClassName} {
         <#list keys2 as key>
             <#if updateConfig["${key}"]??>
             <#else>
-                <#if key == "createTime" || key == updateTime || key == "createBy">
+                <#if key == "createTime" || key == "updateTime" || key == "createBy">
         ${fieldMap["${key}"]} ${key} = null;
                 <#elseif key== "updateBy">
         ${fieldMap["${key}"]} ${key} = MapUtils.get${fieldMap["${key}"]}FromMap(map, "${key}", CurrentUserUtils.getUserName());
