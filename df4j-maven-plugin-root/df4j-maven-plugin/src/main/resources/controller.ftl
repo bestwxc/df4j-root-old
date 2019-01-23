@@ -12,6 +12,7 @@ import com.df4j.base.utils.ValidateUtils;
 import com.df4j.base.form.Field;
 import com.df4j.base.form.BoundType;
 import com.df4j.base.utils.ResultUtils;
+import com.df4j.boot.web.utils.CurrentUserUtils;
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +58,8 @@ public class ${controllerClassName} {
         //${allFieldMap["${key}"]} ${key} = MapUtils.get${allFieldMap["${key}"]}FromMap(map, "${key}", null);
                 <#if allFieldMap["${key}"] == "Date">
         Field<${allFieldMap["${key}"]}> ${key} = FieldUtils.get${allFieldMap["${key}"]}Field(map, "${key}", DateUtils.DATE_TIME_PATTERN, false, BoundType.INCLUDE, BoundType.INCLUDE);
+                <#elseif key == "deleted">
+        Field<${allFieldMap["${key}"]}> ${key} = FieldUtils.get${allFieldMap["${key}"]}Field(map, "${key}", 0, false, BoundType.INCLUDE, BoundType.INCLUDE);
                 <#else>
         Field<${allFieldMap["${key}"]}> ${key} = FieldUtils.get${allFieldMap["${key}"]}Field(map, "${key}", false, BoundType.INCLUDE, BoundType.INCLUDE);
                 </#if>
@@ -87,7 +90,15 @@ public class ${controllerClassName} {
         <#list keys2 as key>
             <#if addConfig["${key}"]??>
             <#else>
+                <#if key == "createTime" || key == updateTime>
+        ${fieldMap["${key}"]} ${key} = null;
+                <#elseif key == "createBy" || key== "updateBy">
+        ${fieldMap["${key}"]} ${key} = MapUtils.get${fieldMap["${key}"]}FromMap(map, "${key}", CurrentUserUtils.getUserName());
+                <#elseif key == "deleted">
+        ${fieldMap["${key}"]} ${key} = MapUtils.get${fieldMap["${key}"]}FromMap(map, "${key}", 0);
+                <#else>
         ${fieldMap["${key}"]} ${key} = MapUtils.get${fieldMap["${key}"]}FromMap(map, "${key}", null);
+                </#if>
             </#if>
         </#list>
         ${modelClassName} ${modelObjectName} = ${serviceObjectName}.add(<#list keys2 as key>${key}<#if keys2?size != (key_index + 1)>, </#if></#list>);
@@ -108,7 +119,15 @@ public class ${controllerClassName} {
         <#list keys2 as key>
             <#if updateConfig["${key}"]??>
             <#else>
+                <#if key == "createTime" || key == updateTime || key == "createBy">
+        ${fieldMap["${key}"]} ${key} = null;
+                <#elseif key== "updateBy">
+        ${fieldMap["${key}"]} ${key} = MapUtils.get${fieldMap["${key}"]}FromMap(map, "${key}", CurrentUserUtils.getUserName());
+                <#elseif key == "deleted">
+        ${fieldMap["${key}"]} ${key} = MapUtils.get${fieldMap["${key}"]}FromMap(map, "${key}", 0);
+                <#else>
         ${fieldMap["${key}"]} ${key} = MapUtils.get${fieldMap["${key}"]}FromMap(map, "${key}", null);
+                </#if>
             </#if>
         </#list>
         ${modelClassName} ${modelObjectName} = ${serviceObjectName}.update(id, <#list keys2 as key>${key}<#if keys2?size != (key_index + 1)>, </#if></#list>);

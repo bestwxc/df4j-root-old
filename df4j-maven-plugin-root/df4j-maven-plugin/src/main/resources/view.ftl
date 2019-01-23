@@ -31,7 +31,11 @@ export default {
 <#list keys as key>
   <#if listConfig["${key}"]??>
   <#else>
+    <#if key == "id" || key == "createBy" || key == "updateBy" || key == "createTime" || key == "updateTime" || key == "deleted">
+          {text: '${key}', value: '${key}', width: 80, hide: true, hideAdd: true, hideUpdate: true, disableAdd: true, disableUpdate: true, filter: false, sort: false, type: 'input'}<#if keys?size != (key_index + 1)>,</#if>
+    <#else>
           {text: '${key}', value: '${key}', width: 80, hide: false, hideAdd: false, hideUpdate: false, disableAdd: false, disableUpdate: false, filter: true, sort: true, type: 'input'}<#if keys?size != (key_index + 1)>,</#if>
+    </#if>
   </#if>
 </#list>
         ],
