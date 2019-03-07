@@ -17,7 +17,7 @@
     </parent>
     <groupId>com.df4j</groupId>
     <artifactId>df4j-root</artifactId>
-    <version>1.2.4-SNAPSHOT</version>
+    <version>1.2.4</version>
     <description>df4j-root</description>
     <name>df4j-root</name>
     <url>https://github.com/bestwxc/df4j-root</url>
@@ -259,10 +259,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
             </plugin>
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-            </plugin>-->
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
