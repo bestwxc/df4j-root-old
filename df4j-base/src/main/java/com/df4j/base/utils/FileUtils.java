@@ -147,13 +147,13 @@ public class FileUtils {
         close(os,null);
     }
 
+
     /**
-     * 读取文件成字符串
-     * @param file
-     * @param charset
-     * @return
+     * 读取文件成字节数组
+     * @param file 文件对象
+     * @return 字节数组
      */
-    public static String readFile(File file,String charset){
+    public static byte[] readFileAsByteArray(File file){
         if(file == null || !file.exists()){
             throw new DfException("文件不存在");
         }
@@ -163,11 +163,26 @@ public class FileUtils {
             int length = inputStream.available();
             byte[] data = new byte[length];
             inputStream.read(data);
-            return new String(data, charset);
+            return data;
         }catch (IOException e){
             throw new DfException("读取文件出错", e);
         }finally {
             close(inputStream);
+        }
+    }
+
+    /**
+     * 读取文件成字符串
+     * @param file
+     * @param charset
+     * @return
+     */
+    public static String readFile(File file,String charset){
+        byte[] data = readFileAsByteArray(file);
+        try {
+            return new String(data, charset);
+        }catch (IOException e){
+            throw new DfException("读取文件出错", e);
         }
     }
 
