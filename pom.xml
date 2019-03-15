@@ -394,9 +394,18 @@
     </build>
     <repositories>
         <repository>
+            <id>oss-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
             <id>spring-snapshots</id>
             <url>https://repo.spring.io/snapshot</url>
-            <snapshots><enabled>true</enabled></snapshots>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
         <repository>
             <id>spring-milestones</id>
@@ -404,6 +413,13 @@
         </repository>
     </repositories>
     <pluginRepositories>
+        <pluginRepository>
+            <id>oss-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
         <pluginRepository>
             <id>spring-snapshots</id>
             <url>https://repo.spring.io/snapshot</url>
