@@ -1,12 +1,15 @@
 package com.df4j.boot.datasource;
 
 import com.df4j.base.exception.DfException;
+import com.df4j.base.utils.JsonUtils;
+import com.df4j.base.utils.MapUtils;
 import com.df4j.base.utils.StringUtils;
 import com.df4j.base.utils.ValidateUtils;
 import com.df4j.boot.properties.DfBootDatasourceProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import javax.sql.DataSource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,6 +52,42 @@ public class DfBootDatasourceBeanFactoryPostProcessor
         logger.info("配置数据源有：{}", datasources.keySet());
         DfDynamicDataSource dynamicDataSource = new DfDynamicDataSource();
         Map<Object, Object> targetDataSources = new HashMap<>();
+        this.configDataSource(environment, factory, datasources, dynamicDataSource, targetDataSources);
+        DataSourceNodeManager.setDefaultDataSourceKey(dfBootDatasourceProperties.getDefaultKey());
+        DataSource defaultDataSource = beanFactory.getBean(DataSourceNodeManager.getDefaultDataSourceKey(), DataSource.class);
+        dynamicDataSource.setDefaultTargetDataSource(defaultDataSource);
+        dynamicDataSource.setTargetDataSources(targetDataSources);
+
+        // 加载自定义配置中的数据源配置
+        List<String> classNames = dfBootDatasourceProperties.getCustomDataSourceConfigLoadClass();
+        if(ValidateUtils.notEmpty(classNames)){
+            logger.info("自定义数据源配置类不为空，开始处理自定义数据源类");
+            for(String className: classNames) {
+                try {
+                    logger.info("开始处理自定义数据源类,class:{}", className);
+                    DfDataSourceConfigure dfDataSourceConfigure = (DfDataSourceConfigure) Class.forName(className).newInstance();
+                    Map<String, DfBootDatasourceProperties.DatasourceNodeProperties> configDatasources = dfDataSourceConfigure.loadConfig(defaultDataSource);
+                    this.configDataSource(environment, factory, datasources, dynamicDataSource, targetDataSources);
+                } catch (Throwable t) {
+                    logger.error("获取自定义数据源配置失败, className:" + className, t);
+                }
+            }
+        }
+        dynamicDataSource.afterPropertiesSet();
+        factory.registerSingleton("dataSource", dynamicDataSource);
+        logger.debug("配置自定义多数据源完成");
+    }
+
+    /**
+     * 配置数据源
+     * @param environment SpringBoot环境配置
+     * @param factory Spring BeanFactory
+     * @param datasources 数据源配置
+     * @param dynamicDataSource 动态数据源
+     * @param targetDataSources 目标数据源集合
+     */
+    private void configDataSource(Environment environment, DefaultListableBeanFactory factory, Map<String, DfBootDatasourceProperties.DatasourceNodeProperties> datasources,
+                                  DfDynamicDataSource dynamicDataSource, Map<Object, Object> targetDataSources){
         for(String datasourceKey: datasources.keySet()){
             DfBootDatasourceProperties.DatasourceNodeProperties datasource = datasources.get(datasourceKey);
             Map<String, Map<String, Object>> nodes = datasource.getNodes();
@@ -63,12 +103,6 @@ public class DfBootDatasourceBeanFactoryPostProcessor
             }
             DataSourceNodeManager.addDataSource(datasourceKey, datasource.getMaster(), nodeBeanKeys);
         }
-        DataSourceNodeManager.setDefaultDataSourceKey(dfBootDatasourceProperties.getDefaultKey());
-        dynamicDataSource.setDefaultTargetDataSource(beanFactory.getBean(DataSourceNodeManager.getDefaultDataSourceKey()));
-        dynamicDataSource.setTargetDataSources(targetDataSources);
-        dynamicDataSource.afterPropertiesSet();
-        factory.registerSingleton("dataSource", dynamicDataSource);
-        logger.debug("配置自定义多数据源完成");
     }
 
     private DataSource initDataSource(Environment environment, String type, String datasourceKey, String nodeKey){

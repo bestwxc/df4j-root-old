@@ -1,6 +1,8 @@
 package com.df4j.boot.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +15,9 @@ public class DfBootDatasourceProperties {
     private boolean enabled;
     // 默认数据源
     private String defaultKey;
+
+    private List<String> customDataSourceConfigLoadClass = new ArrayList<>();
+
     // 数据源配置
     private Map<String, DatasourceNodeProperties> datasources;
 
@@ -30,6 +35,14 @@ public class DfBootDatasourceProperties {
 
     public void setDefaultKey(String defaultKey) {
         this.defaultKey = defaultKey;
+    }
+
+    public List<String> getCustomDataSourceConfigLoadClass() {
+        return customDataSourceConfigLoadClass;
+    }
+
+    public void setCustomDataSourceConfigLoadClass(List<String> customDataSourceConfigLoadClass) {
+        this.customDataSourceConfigLoadClass = customDataSourceConfigLoadClass;
     }
 
     public Map<String, DatasourceNodeProperties> getDatasources() {
