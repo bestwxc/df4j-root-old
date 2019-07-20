@@ -9,6 +9,7 @@
         <module>df4j-boot-root</module>
         <module>df4j-cloud-root</module>
         <module>df4j-maven-plugin-root</module>
+        <module>df4j-socket-core</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
