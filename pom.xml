@@ -80,7 +80,7 @@
         <spring-session-bom.version>Bean-SR4</spring-session-bom.version>
 
         <!--插件版本管理-->
-        <maven-plugin-plugin.version>3.6.1</maven-plugin-plugin.version>
+        <maven-plugin-plugin.version>3.6.0</maven-plugin-plugin.version>
         <maven-core.version>3.6.1</maven-core.version>
         <maven-plugin-api.version>3.6.1</maven-plugin-api.version>
         <maven-plugin-annotations.version>3.6.0</maven-plugin-annotations.version>
