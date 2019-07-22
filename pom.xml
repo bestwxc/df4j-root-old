@@ -143,6 +143,11 @@
                 <artifactId>df4j-generator-engine</artifactId>
                 <version>${df4j-root.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.df4j</groupId>
+                <artifactId>df4j-socket-core</artifactId>
+                <version>${df4j-root.version}</version>
+            </dependency>
 
             <!--数据库-->
             <dependency>

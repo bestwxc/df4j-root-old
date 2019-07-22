@@ -36,6 +36,10 @@ public class AbstractNettySocketClient extends AbstractSocketClient<ChannelHandl
         return channelHandlerContext;
     }
 
+    public void setChannelHandlerContext(ChannelHandlerContext channelHandlerContext) {
+        this.channelHandlerContext = channelHandlerContext;
+    }
+
     @Override
     protected void init0() {
         Assert.notNull(this.eventLoopGroup, "eventLoopGroup不能为null");
@@ -51,7 +55,7 @@ public class AbstractNettySocketClient extends AbstractSocketClient<ChannelHandl
      * 配置
      * @param bootstrap
      */
-    void config(Bootstrap bootstrap){}
+    protected void config(Bootstrap bootstrap){}
 
     @Override
     protected void connect0() {
@@ -66,6 +70,12 @@ public class AbstractNettySocketClient extends AbstractSocketClient<ChannelHandl
                 }
             }
         });
+        try {
+            future.sync();
+        }catch (Exception e){
+            logger.error("[连接-" + this.getName() + "]连接出现异常", e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

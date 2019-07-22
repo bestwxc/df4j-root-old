@@ -206,9 +206,14 @@ public abstract class AbstractSocketClient<T> implements SocketClient<T>{
             this.connectFailTimes++;
             logger.info("[连接-{}]正在进行第{}次连接", this.getName(), this.connectFailTimes);
             this.getNextServer();
-            this.status = CONNECTING;
-            this.connect0();
-            this.status = CONNECTED;
+            try {
+                this.status = CONNECTING;
+                this.connect0();
+                this.status = CONNECTED;
+            }catch (Exception e){
+                this.status = CLOSED;
+                throw e;
+            }
             this.connectFailTimes = 0;
             this.connectTime = System.currentTimeMillis();
             this.info("连接成功");
@@ -226,6 +231,7 @@ public abstract class AbstractSocketClient<T> implements SocketClient<T>{
             while (true) {
                 try{
                     this.connect();
+                    break;
                 }catch (Exception t){
                     logger.error("[连接-" + this.getName() + "]失败", t);
                 }
