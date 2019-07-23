@@ -62,6 +62,11 @@ public class ClientConfiguration {
     private int heartBeatFailTimes = 10;
 
     /**
+     * 单个协议包最大大小
+     */
+    private int maxPackageSize = 8 * 1024 * 1024;
+
+    /**
      * 构造方法
      */
     public ClientConfiguration() {
@@ -171,5 +176,13 @@ public class ClientConfiguration {
 
     public void setHeartBeatFailTimes(int heartBeatFailTimes) {
         this.heartBeatFailTimes = heartBeatFailTimes;
+    }
+
+    public int getMaxPackageSize() {
+        return maxPackageSize;
+    }
+
+    public void setMaxPackageSize(int maxPackageSize) {
+        this.maxPackageSize = maxPackageSize;
     }
 }

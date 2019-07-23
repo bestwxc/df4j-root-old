@@ -45,7 +45,7 @@ public abstract class AbstractSocketClient<T> implements SocketClient<T>{
     /**
      * 是否已经连接
      */
-    private boolean isConnected = false;
+    private boolean connected = false;
 
     /**
      * 累计连接失败次数
@@ -113,6 +113,38 @@ public abstract class AbstractSocketClient<T> implements SocketClient<T>{
         if(StringUtils.isEmpty(this.name)){
             this.name = this.getClass().getName() + "-" + System.currentTimeMillis();
         }
+    }
+
+    public ClientConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public int getConnectFailTimes() {
+        return connectFailTimes;
+    }
+
+    public Long getConnectTime() {
+        return connectTime;
+    }
+
+    public Long getLastHeartBeatTime() {
+        return lastHeartBeatTime;
+    }
+
+    public int getHeartBeatFailTimes() {
+        return heartBeatFailTimes;
+    }
+
+    public boolean isInUse() {
+        return inUse;
     }
 
     protected InetSocketAddress getCurrentServer() {
