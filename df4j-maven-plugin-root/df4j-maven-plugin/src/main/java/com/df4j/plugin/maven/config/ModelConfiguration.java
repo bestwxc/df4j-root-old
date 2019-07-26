@@ -53,6 +53,11 @@ public class ModelConfiguration {
     private ControllerConfiguration controller;
 
     /**
+     * ModelInfo配置
+     */
+    private ModelInfoConfiguration modelInfo;
+
+    /**
      * view配置
      */
     private ViewConfiguration view;
@@ -135,5 +140,13 @@ public class ModelConfiguration {
 
     public void setView(ViewConfiguration view) {
         this.view = view;
+    }
+
+    public ModelInfoConfiguration getModelInfo() {
+        return modelInfo;
+    }
+
+    public void setModelInfo(ModelInfoConfiguration modelInfo) {
+        this.modelInfo = modelInfo;
     }
 }

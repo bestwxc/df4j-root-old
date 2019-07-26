@@ -42,4 +42,13 @@ public abstract class BaseGenerator implements Generator{
         return this.getBasePackage()+ "." + this.getModuleName() + ".controller."
                 + this.configuration.getController().getControllerClassName();
     }
+
+    public String getModelInfoClassName(){
+        return this.configuration.getModelInfo().getModelInfoClassName();
+    }
+
+    public String getModelInfoClass(){
+        return this.getBasePackage()+ "." + this.getModuleName() + ".model.info."
+                + this.configuration.getModelInfo().getModelInfoClassName();
+    }
 }

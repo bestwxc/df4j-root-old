@@ -43,8 +43,10 @@ public class BaseBusinessGenerate extends BaseGenerator{
         String modelClass = this.getModelClass();
         String serviceClass = this.getServiceClass();
         String controllerClass = this.getControllerClass();
+        String modelInfoClass = this.getModelInfoClass();
         String serviceFilePath = projectPath + File.separator + serviceClass.replaceAll("\\.", separator) + ".java";
         String controllerFilePath = projectPath + File.separator + controllerClass.replaceAll("\\.", separator) + ".java";
+        String modelInfoFilePath = projectPath + File.separator + modelInfoClass.replaceAll("\\.", separator) + ".java";
         ViewConfiguration viewConfiguration = this.getConfiguration().getView();
         File viewFolder = new File(viewConfiguration.getViewProjectPath(),
                 viewConfiguration.getViewPackage());
@@ -60,6 +62,9 @@ public class BaseBusinessGenerate extends BaseGenerator{
         if(this.getConfiguration().getView().isEnabled()){
             File viewFile = new File(viewFolder, viewConfiguration.getViewPathAndName());
             this.generateFile("view.ftl",root, viewFile.getAbsolutePath());
+        }
+        if(this.getConfiguration().getModelInfo().isEnabled()){
+            this.generateFile("modelInfo.ftl",root, modelInfoFilePath);
         }
     }
 
