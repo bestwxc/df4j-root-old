@@ -13,7 +13,6 @@
     <artifactId>df4j-bigdata-root</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>dfj4-flink-root</module>
+        <module>df4j-flink-root</module>
     </modules>
-
 </project>
