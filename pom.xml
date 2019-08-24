@@ -10,6 +10,7 @@
         <module>df4j-cloud-root</module>
         <module>df4j-maven-plugin-root</module>
         <module>df4j-socket-core</module>
+        <module>df4j-bigdata-root</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -35,7 +36,7 @@
         <url>https://github.com/bestwxc/df4j-root</url>
         <connection>scm:git:https://github.com/bestwxc/df4j-root</connection>
         <developerConnection>scm:git:https://github.com/bestwxc/df4j-root</developerConnection>
-        <tag>v1.2.5</tag>
+        <tag>v1.2.6</tag>
     </scm>
 
     <developers>
@@ -84,6 +85,7 @@
         <maven-core.version>3.6.1</maven-core.version>
         <maven-plugin-api.version>3.6.1</maven-plugin-api.version>
         <maven-plugin-annotations.version>3.6.0</maven-plugin-annotations.version>
+        <maven-shade-plugin.version>3.0.0</maven-shade-plugin.version>
 
         <!-- jjwt -->
         <jjwt.version>0.10.5</jjwt.version>
