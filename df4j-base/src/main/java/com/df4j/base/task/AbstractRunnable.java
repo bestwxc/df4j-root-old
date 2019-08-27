@@ -38,10 +38,10 @@ public abstract class AbstractRunnable implements Runnable{
         String threadName = Thread.currentThread().getName();
         try {
             Long time = System.currentTimeMillis();
-            logger.info("Task-{}[{}] start.", this.getName(), threadName);
+            logger.debug("Task-{}[{}] start.", this.getName(), threadName);
             beginTime.set(time);
             this.run0();
-            logger.info("Task-{}[{}] end, cost {} ms",
+            logger.debug("Task-{}[{}] end, cost {} ms",
                     this.getName(), threadName, System.currentTimeMillis() - beginTime.get());
             beginTime.remove();
         }catch (Throwable e){

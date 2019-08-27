@@ -19,7 +19,7 @@
     </parent>
     <groupId>com.df4j</groupId>
     <artifactId>df4j-root</artifactId>
-    <version>1.2.6</version>
+    <version>1.2.7-SNAPSHOT</version>
     <description>df4j-root</description>
     <name>df4j-root</name>
     <url>https://github.com/bestwxc/df4j-root</url>
@@ -36,7 +36,7 @@
         <url>https://github.com/bestwxc/df4j-root</url>
         <connection>scm:git:https://github.com/bestwxc/df4j-root</connection>
         <developerConnection>scm:git:https://github.com/bestwxc/df4j-root</developerConnection>
-        <tag>v1.2.6</tag>
+        <tag>v1.2.7</tag>
     </scm>
 
     <developers>
@@ -48,7 +48,7 @@
 
     <properties>
         <!--框架基本信息配置-->
-        <df4j-root.version>1.2.6</df4j-root.version>
+        <df4j-root.version>1.2.7-SNAPSHOT</df4j-root.version>
         <spring-cloud.version>Finchley.SR3</spring-cloud.version>
         <spring-boot.mainClass>com.df4j.Application</spring-boot.mainClass>
 
