@@ -1,0 +1,3 @@
+org.springframework.boot.SpringApplicationRunListener=\
+  com.df4j.boot.listener.DfSpringApplicationRunListener
+  
