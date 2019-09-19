@@ -18,7 +18,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%p][%c][%M][%L]-> %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%t][%p][%c][%M][%L]-> %m%n</pattern>
         </encoder>
     </appender>
     <appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -33,7 +33,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%p][%c][%M][%L]-> %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%t][%p][%c][%M][%L]-> %m%n</pattern>
         </encoder>
     </appender>
     <appender name="fileWarnLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -48,7 +48,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%p][%c][%M][%L]-> %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%t][%p][%c][%M][%L]-> %m%n</pattern>
         </encoder>
     </appender>
     <appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -63,7 +63,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%p][%c][%M][%L]-> %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%t][%p][%c][%M][%L]-> %m%n</pattern>
         </encoder>
     </appender>
     <root level="DEBUG">

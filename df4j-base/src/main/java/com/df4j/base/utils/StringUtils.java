@@ -51,4 +51,30 @@ public class StringUtils {
     public static String concat(List<String> stringList){
         return concat(stringList, null);
     }
+
+    /**
+     * 在字符串左边补空格，至指定的长度
+     * @param source
+     * @param length
+     * @return
+     */
+    public static String lpad(String source, int length){
+        if(source == null) {
+            source = "";
+        }
+        return String.format("%" + length + "s", source);
+    }
+
+    /**
+     * 在字符串右边补空格，至指定的长度
+     * @param source
+     * @param length
+     * @return
+     */
+    public static String rpad(String source, int length){
+        if(source == null) {
+            source = "";
+        }
+        return String.format("%-" + length + "s", source);
+    }
 }
