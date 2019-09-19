@@ -1,6 +1,8 @@
 package com.df4j.base.utils;
 
 import com.df4j.base.exception.ParamIllegalException;
+import com.df4j.base.form.StringPaddingType;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -78,6 +80,57 @@ public class MapUtils {
     public static String getStringFromMap(Map<String,?> map,String fieldName,String defaultValue){
         return getStringFromMap(map, fieldName, defaultValue,true);
     }
+
+    /**
+     * 从Map中获取字符串，并在指定方向填充空格
+     * @param map
+     * @param fieldName
+     * @param stringPaddingType
+     * @param length
+     * @return
+     */
+    public static String getPaddingStringFromMapNotNull(Map<String,?> map, String fieldName, StringPaddingType stringPaddingType, int length){
+        return StringUtils.pad(getStringFromMapNotNull(map, fieldName), stringPaddingType, length);
+    }
+
+
+    /**
+     * 从Map中获取字符串，并在指定方向填充空格
+     * @param map
+     * @param fieldName
+     * @param defaultValue
+     * @param stringPaddingType
+     * @param length
+     * @return
+     */
+    public static String getPaddingStringFromMap(Map<String,?> map,String fieldName,String defaultValue, StringPaddingType stringPaddingType, int length){
+        return StringUtils.pad(getStringFromMap(map, fieldName, defaultValue), stringPaddingType, length);
+    }
+
+    /**
+     * 从Map中获取字符串，并在右边填充空格至指定长度
+     * @param map
+     * @param fieldName
+     * @param length
+     * @return
+     */
+    public static String getRpadStringFromMapNotNull(Map<String,?> map, String fieldName, int length){
+        return getPaddingStringFromMapNotNull(map, fieldName, null, length);
+    }
+
+
+    /**
+     * 从Map中获取字符串，并在右边填充空格至指定长度
+     * @param map
+     * @param fieldName
+     * @param defaultValue
+     * @param length
+     * @return
+     */
+    public static String getRpadStringFromMap(Map<String,?> map, String fieldName, String defaultValue, int length){
+        return getPaddingStringFromMap(map, fieldName, defaultValue, null, length);
+    }
+
 
     /**
      * 从Map中获取整数

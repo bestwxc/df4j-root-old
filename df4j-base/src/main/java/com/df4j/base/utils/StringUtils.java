@@ -1,5 +1,6 @@
 package com.df4j.base.utils;
 
+import com.df4j.base.form.StringPaddingType;
 import java.util.List;
 
 /**
@@ -76,5 +77,16 @@ public class StringUtils {
             source = "";
         }
         return String.format("%-" + length + "s", source);
+    }
+
+    /**
+     * 使用指定的填充类型补空格，至指定的长度
+     * @param source
+     * @param stringPaddingType
+     * @param length
+     * @return
+     */
+    public static String pad(String source, StringPaddingType stringPaddingType, int length){
+        return StringPaddingType.LEFT.equals(stringPaddingType) ? lpad(source, length) : rpad(source, length);
     }
 }
